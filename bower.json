@@ -20,6 +20,6 @@
     "ember": "1.7.0"
   },
   "devDependencies": {
-    "ember-table": "~0.2.3"
+    "ember-table": "0.2.3"
   }
 }
