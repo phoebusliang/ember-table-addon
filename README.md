@@ -8,12 +8,12 @@ definitions of Ember Table.
 
 ## Phases
 
-[ ] Phase 1: Simple wrapper which installs Ember Table and dependencies via bower
-[ ] Phase 2: Replace {{table-component}} with an Ember-CLI style component
-[ ] Phase 3: Allow importing with modules by creating an Ember-CLI structure, where each file simply exports its globally defined counterpart
-[ ] Phase 4: Rewrite source files into javascript
-[ ] Phase 5: Move the code to module structure, and support global style via a separate file that exports all the globals
-[ ] Phase 6: Port remaining parts of the app to Ember-CLI style
+- [x] Phase 1: Simple wrapper which installs Ember Table and dependencies via bower
+- [x] Phase 2: Replace {{table-component}} with an Ember-CLI style component
+- [x] Phase 3: Allow importing with modules by creating an Ember-CLI structure, where each file simply exports its globally defined counterpart
+- [ ] Phase 4: Rewrite source files into javascript
+- [ ] Phase 5: Move the code to module structure, and support global style via a separate file that exports all the globals
+- [ ] Phase 6: Port remaining parts of the app to Ember-CLI style
 
 The rationale for this multi-step upgrade is to reduce risk and keep the
 library functional in non-ember-cli apps.
