@@ -20,7 +20,7 @@ library functional in non-ember-cli apps.
 
 ## Installing in your Ember CLI app
 
-* `npm install ember-table`
+* `npm install --save-dev ember-table`
 * `ember g ember-table`
 
 ## Installation
