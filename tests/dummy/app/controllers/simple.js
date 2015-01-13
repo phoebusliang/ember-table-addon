@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export default Ember.Controller.extend({
   numRows: 100,
   columns: Ember.computed(function() {
