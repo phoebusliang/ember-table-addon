@@ -1,7 +1,6 @@
-import Ember from 'ember';
-import TableRow from 'ember-table/views/table-row';
+import Row from 'ember-table/row';
 
-export default TableRow.extend({
+export default Row.extend({
   content: null,
   children: null,
   parent: null,

@@ -1,11 +1,25 @@
 import Ember from 'ember';
 import TableComponent from 'ember-table/components/ember-table';
 import ColumnDefinition from 'ember-table/column-definition';
-//import FinancialTableCell from '../views/financial-table-cell';
-//import FinancialTableHeaderCell from '../views/financial-table-header-cell';
-//import FinancialTableHeaderTreeCell from '../views/financial-table-header-tree-cell';
-//import FinancialTableTreeCell from '../views/financial-table-tree-cell';
 import FinancialTableTreeRow from '../views/financial-table-tree-row';
+
+var NumberHelper = {};
+NumberHelper.toCurrency = function(num) {
+  var value;
+  if (isNaN(num) || !isFinite(num)) {
+    return '-';
+  }
+  value = Math.abs(num).toFixed(2);
+  value = value.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+  return (num < 0 ? '-$' : '$') + value;
+};
+
+NumberHelper.toPercent = function(num) {
+  if (isNaN(num) || !isFinite(num)) {
+    return '-';
+  }
+  return Math.abs(num * 100).toFixed(2) + '%';
+};
 
 export default TableComponent.extend({
   numFixedColumns: 1,
@@ -56,10 +70,10 @@ export default TableComponent.extend({
           var object;
           object = row.get('values')[this.get('index')];
           if (object.type === 'money') {
-            return object.value.toCurrency();
+            return NumberHelper.toCurrency(object.value);
           }
           if (object.type === 'percent') {
-            return object.value.toPercent();
+            return NumberHelper.toPercent(object.value);
           }
           return "-";
         }
