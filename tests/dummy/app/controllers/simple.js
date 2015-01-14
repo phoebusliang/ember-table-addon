@@ -1,7 +1,9 @@
+/* Tell JSHint not to worry about _ not being defined */
+/* global _:false */
+
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  numRows: 100,
   columns: Ember.computed(function() {
     var closeColumn, dateColumn, highColumn, lowColumn, openColumn;
     dateColumn = Ember.Table.ColumnDefinition.create({
@@ -43,14 +45,8 @@ export default Ember.Controller.extend({
     return [dateColumn, openColumn, highColumn, lowColumn, closeColumn];
   }),
   content: Ember.computed(function() {
-    var _i, _ref, _results;
-    return (function() {
-      _results = [];
-      for (var _i = 0, _ref = this.get('numRows'); 0 <= _ref ? _i < _ref : _i > _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
-      return _results;
-    }).apply(this).map(function(index) {
-      var date;
-      date = new Date();
+    return _.range(100).map(function(index) {
+      var date = new Date();
       date.setDate(date.getDate() + index);
       return {
         date: date,
@@ -61,6 +57,6 @@ export default Ember.Controller.extend({
         volume: Math.random() * 1000000
       };
     });
-  }).property('numRows')
+  })
 });
 
