@@ -23,6 +23,7 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.4",
     "loader.js": "stefanpenner/loader.js#1.0.1",
-    "qunit": "~1.15.0"
+    "qunit": "~1.15.0",
+    "d3": "~3.5.3"
   }
 }
