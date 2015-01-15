@@ -26,15 +26,17 @@ module.exports = function(environment) {
      * be cleaned up.
      *
      * We allow ghbtns.com to show the "Github stars" widget.
+     * We allow avatars.githubusercontent.com and api.github.com for the Ajax
+     * table example.
      *
      * NOTE: This is used by ember-cli-content-security-policy.
      */
     contentSecurityPolicy: {
       'default-src': "ghbtns.com",
-      'script-src': "'self'",
+      'script-src': "'self' api.github.com",
       'font-src': "'self'",
       'connect-src': "'self'",
-      'img-src': "'self'",
+      'img-src': "'self' avatars.githubusercontent.com",
       'style-src': "'self' 'unsafe-inline'",
       'media-src': "'self'"
     }
