@@ -5,11 +5,13 @@ var Router = Ember.Router.extend({
   location: config.locationType
 });
 
+// FIXME(azirbel): Stop logging generated routes, once the app is working well
+
 Router.map(function() {
-  this.route('license');
   this.route('overview');
   this.route('documentation');
   this.route('migration-guides');
+
   this.route('simple');
   this.route('ajax');
   this.route('bars');
@@ -19,7 +21,10 @@ Router.map(function() {
   this.route('sparkline');
   this.route('horizon');
   this.route('configurable-columns');
+
   this.route('community-examples');
+
+  this.route('license');
 });
 
 export default Router;

@@ -16,6 +16,27 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    /*
+     * FIXME(azirbel): Added unsafe-inline to remove warnings.
+     *
+     * CSP "unsafe" inline styles seem to be used for table rows somehow, I
+     * haven't tracked it down. This is probably ok for now, but could probably
+     * be cleaned up.
+     *
+     * We allow ghbtns.com to show the "Github stars" widget.
+     *
+     * NOTE: This is used by ember-cli-content-security-policy.
+     */
+    contentSecurityPolicy: {
+      'default-src': "ghbtns.com",
+      'script-src': "'self'",
+      'font-src': "'self'",
+      'connect-src': "'self'",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
+      'media-src': "'self'"
     }
   };
 

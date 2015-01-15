@@ -3,6 +3,7 @@ import TableComponent from 'ember-table/components/ember-table';
 import ColumnDefinition from 'ember-table/column-definition';
 import FinancialTableTreeRow from '../views/financial-table-tree-row';
 
+// HACK: Used to help format table cells, should be refactored or use a library
 var NumberHelper = {};
 NumberHelper.toCurrency = function(num) {
   var value;
@@ -32,7 +33,7 @@ export default TableComponent.extend({
   sortAscending: false,
   sortColumn: null,
   actions: {
-    toggleTableCollapse: function(event) {
+    toggleTableCollapse: function() {
       var children, isCollapsed;
       this.toggleProperty('isCollapsed');
       isCollapsed = this.get('isCollapsed');

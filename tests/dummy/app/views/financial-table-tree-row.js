@@ -1,5 +1,7 @@
 import Row from 'ember-table/row';
 
+// FIXME(azirbel): Use proper JS style in this and all other files
+
 export default Row.extend({
   content: null,
   children: null,
