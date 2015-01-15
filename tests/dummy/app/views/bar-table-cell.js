@@ -6,7 +6,9 @@ export default TableCell.extend({
   classNameBindings: ['column.color'],
   barWidth: Ember.computed(function() {
     var column, row, _ref;
-    _ref = this.getProperties('column', 'row'), column = _ref.column, row = _ref.row;
+    _ref = this.getProperties('column', 'row');
+    column = _ref.column;
+    row = _ref.row;
     if (!(column && row)) {
       return 0;
     }
