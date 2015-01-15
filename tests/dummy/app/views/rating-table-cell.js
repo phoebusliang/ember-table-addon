@@ -13,13 +13,13 @@ export default TableCell.extend({
   },
   applyRating: function(rating) {
     var span;
-    Ember.$('.rating span').removeClass('active');
-    span = Ember.$('.rating span').get(rating);
+    this.$('.rating span').removeClass('active');
+    span = this.$('.rating span').get(rating);
     return Ember.$(span).addClass('active');
   },
   click: function(event) {
     var rating;
-    rating = Ember.$('.rating span').index(event.target);
+    rating = this.$('.rating span').index(event.target);
     if (rating === -1) {
       return;
     }
