@@ -1,7 +1,7 @@
 /* global _ */
 
 import Ember from 'ember';
-import ColumnDefinition from 'ember-table/column-definition';
+import ColumnDefinition from 'ember-table/models/column-definition';
 
 export default Ember.Controller.extend({
   columns: Ember.computed(function() {

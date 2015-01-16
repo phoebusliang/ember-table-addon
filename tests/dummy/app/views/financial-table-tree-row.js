@@ -1,4 +1,4 @@
-import Row from 'ember-table/row';
+import Row from 'ember-table/controllers/row';
 
 // FIXME(azirbel): Use proper JS style in this and all other files
 

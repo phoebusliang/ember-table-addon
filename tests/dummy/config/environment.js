@@ -25,6 +25,11 @@ module.exports = function(environment) {
      * haven't tracked it down. This is probably ok for now, but could probably
      * be cleaned up.
      *
+     * FIXME(azirbel): Added unsafe-eval to remove warnings.
+     *
+     * The app claims that strings are being evaluated as javascript - I'm not
+     * sure why. I added unsafe-eval for now but we should revisit this.
+     *
      * We allow ghbtns.com to show the "Github stars" widget.
      * We allow avatars.githubusercontent.com and api.github.com for the Ajax
      * table example.
@@ -35,7 +40,7 @@ module.exports = function(environment) {
      */
     contentSecurityPolicy: {
       'default-src': "ghbtns.com",
-      'script-src': "'self' api.github.com",
+      'script-src': "'self' 'unsafe-eval' api.github.com",
       'font-src': "'self' fast.fonts.net",
       'connect-src': "'self'",
       'img-src': "'self' avatars.githubusercontent.com",

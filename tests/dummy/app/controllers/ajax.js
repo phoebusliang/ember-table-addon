@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ColumnDefinition from 'ember-table/column-definition';
+import ColumnDefinition from 'ember-table/models/column-definition';
 import AjaxTableLazyDataSource from '../views/ajax-table-lazy-data-source';
 
 export default Ember.Controller.extend({

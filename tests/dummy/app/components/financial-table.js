@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import TableComponent from 'ember-table/components/ember-table';
-import ColumnDefinition from 'ember-table/column-definition';
+import ColumnDefinition from 'ember-table/models/column-definition';
 import FinancialTableTreeRow from '../views/financial-table-tree-row';
 
 // HACK: Used to help format table cells, should be refactored or use a library

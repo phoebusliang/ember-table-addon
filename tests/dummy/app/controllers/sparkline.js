@@ -1,7 +1,7 @@
 /* global _, d3 */
 
 import Ember from 'ember';
-import ColumnDefinition from 'ember-table/column-definition';
+import ColumnDefinition from 'ember-table/models/column-definition';
 
 export default Ember.Controller.extend({
   // FIXME(azirbel): Should we use this style, or function(){}.property()?
