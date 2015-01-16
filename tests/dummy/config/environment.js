@@ -29,12 +29,14 @@ module.exports = function(environment) {
      * We allow avatars.githubusercontent.com and api.github.com for the Ajax
      * table example.
      *
+     * We allow fast.fonts.net to load Univers fonts.
+     *
      * NOTE: This is used by ember-cli-content-security-policy.
      */
     contentSecurityPolicy: {
       'default-src': "ghbtns.com",
       'script-src': "'self' api.github.com",
-      'font-src': "'self'",
+      'font-src': "'self' fast.fonts.net",
       'connect-src': "'self'",
       'img-src': "'self' avatars.githubusercontent.com",
       'style-src': "'self' 'unsafe-inline'",
