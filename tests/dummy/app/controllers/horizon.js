@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
         return 'Horizon ' + row.get('name');
       }
     });
-    horizon = Ember.Table.ColumnDefinition.create({
+    horizon = ColumnDefinition.create({
       savedWidth: 600,
       headerCellName: 'Horizon',
       tableCellViewClass: 'horizon-table-cell',

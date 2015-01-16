@@ -1,11 +1,12 @@
 /* global _ */
 
 import Ember from 'ember';
+import ColumnDefinition from 'ember-table/column-definition';
 
 export default Ember.Controller.extend({
   columns: Ember.computed(function() {
     var closeColumn, dateColumn, highColumn, lowColumn, openColumn;
-    dateColumn = Ember.Table.ColumnDefinition.create({
+    dateColumn = ColumnDefinition.create({
       savedWidth: 150,
       textAlign: 'text-align-left',
       headerCellName: 'Date',
@@ -13,28 +14,28 @@ export default Ember.Controller.extend({
         return row.get('date').toDateString();
       }
     });
-    openColumn = Ember.Table.ColumnDefinition.create({
+    openColumn = ColumnDefinition.create({
       savedWidth: 100,
       headerCellName: 'Open',
       getCellContent: function(row) {
         return row.get('open').toFixed(2);
       }
     });
-    highColumn = Ember.Table.ColumnDefinition.create({
+    highColumn = ColumnDefinition.create({
       savedWidth: 100,
       headerCellName: 'High',
       getCellContent: function(row) {
         return row.get('high').toFixed(2);
       }
     });
-    lowColumn = Ember.Table.ColumnDefinition.create({
+    lowColumn = ColumnDefinition.create({
       savedWidth: 100,
       headerCellName: 'Low',
       getCellContent: function(row) {
         return row.get('low').toFixed(2);
       }
     });
-    closeColumn = Ember.Table.ColumnDefinition.create({
+    closeColumn = ColumnDefinition.create({
       savedWidth: 100,
       headerCellName: 'Close',
       getCellContent: function(row) {

@@ -1,18 +1,19 @@
 /* global _ */
 
 import Ember from 'ember';
+import ColumnDefinition from 'ember-table/column-definition';
 
 export default Ember.Controller.extend({
   columns: Ember.computed(function() {
     var colors, column1, columns;
     colors = ['blue', 'teal', 'green', 'yellow', 'orange'];
-    column1 = Ember.Table.ColumnDefinition.create({
+    column1 = ColumnDefinition.create({
       savedWidth: 50,
       headerCellName: 'Name',
       contentPath: 'key'
     });
     columns = colors.map(function(color, index) {
-      return Ember.Table.ColumnDefinition.create({
+      return ColumnDefinition.create({
         color: color,
         headerCellName: 'Bar',
         tableCellViewClass: 'bar-table-cell',

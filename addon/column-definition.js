@@ -1,4 +1,4 @@
 import Ember from 'ember';
 
-// FIXME(azirbel): Where does this belong in the directory structure?
+// FIXME(azirbel): Move to models
 export default Ember.Table.ColumnDefinition;

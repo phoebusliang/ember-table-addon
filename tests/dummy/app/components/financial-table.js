@@ -4,6 +4,7 @@ import ColumnDefinition from 'ember-table/column-definition';
 import FinancialTableTreeRow from '../views/financial-table-tree-row';
 
 // HACK: Used to help format table cells, should be refactored or use a library
+// FIXME(azirbel): Should be a handlebars helper
 var NumberHelper = {};
 NumberHelper.toCurrency = function(num) {
   var value;
