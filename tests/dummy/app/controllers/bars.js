@@ -1,5 +1,4 @@
-/* Tell JSHint not to worry about _ not being defined */
-/* global _:false */
+/* global _ */
 
 import Ember from 'ember';
 

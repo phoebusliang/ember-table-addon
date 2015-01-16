@@ -1,3 +1,5 @@
+/* global _, d3 */
+
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
@@ -48,9 +50,8 @@ export default Ember.Controller.extend({
     return [name, open, spark, close, low, high];
   }),
   content: Ember.computed(function() {
-    var randomWalk, _i, _ref, _results;
-    randomWalk = function(numSteps) {
-      var lastValue, _i, _results;
+    var randomWalk = function(numSteps) {
+      var lastValue, _results;
       lastValue = 0;
       return (function() {
         _results = [];

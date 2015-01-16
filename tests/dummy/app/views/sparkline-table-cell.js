@@ -1,6 +1,7 @@
+/* global d3 */
+
 import Ember from 'ember';
 import TableCell from 'ember-table/views/table-cell';
-import d3 from 'bower_components/d3/d3';
 
 export default TableCell.extend({
   template: Ember.Handlebars.compile(""),
@@ -34,7 +35,7 @@ export default TableCell.extend({
     });
     svg = d3.select("#" + (this.get('elementId'))).append('svg:svg').attr('height', h).attr('width', w);
     g = svg.append('svg:g');
-    return g.append('svg:path').attr('d', line(data)).attr('stroke', function(d) {
+    return g.append('svg:path').attr('d', line(data)).attr('stroke', function() {
       return fill(Math.round(Math.random()) * 10);
     }).attr('fill', 'none');
   }
