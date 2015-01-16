@@ -1,6 +1,6 @@
 {
   "name": "ember-table",
-  "version": "0.2.3",
+  "version": "0.0.1",
   "description": "Table built using Ember.js that lazily renders rows.",
   "directories": {
     "doc": "doc",
@@ -31,7 +31,9 @@
     "ember-cli-qunit": "0.1.0",
     "ember-export-application-global": "^1.0.0",
     "express": "^4.8.5",
-    "glob": "^4.0.5"
+    "glob": "^4.0.5",
+    "grunt": "~0.4.1",
+    "grunt-release-it": "~0.2.0"
   },
   "keywords": [
     "ember-addon"
