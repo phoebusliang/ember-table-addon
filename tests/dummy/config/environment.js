@@ -44,7 +44,7 @@ module.exports = function(environment) {
       'font-src': "'self' fast.fonts.net",
       'connect-src': "'self'",
       'img-src': "'self' avatars.githubusercontent.com",
-      'style-src': "'self' 'unsafe-inline'",
+      'style-src': "'self' 'unsafe-inline' fast.fonts.net",
       'media-src': "'self'"
     }
   };
