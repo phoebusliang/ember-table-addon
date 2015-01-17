@@ -11,7 +11,11 @@ var app = new EmberAddon({
     outputFile: 'dummy.css'
   },
 
-  // Replace patterns starting with @@
+  /*
+   * Replace patterns. We use this to replace strings such as:
+   * @@{controllers/file.js}
+   * With the content of those files.
+   */
   replace: {
     files: [
       '**/*'
@@ -21,7 +25,8 @@ var app = new EmberAddon({
       replacement: function(matchedText) {
         filename = matchedText.slice(3, -1);
         fullFilename = './tests/dummy/app/' + filename;
-        return fs.readFileSync('./test.txt', 'utf8').trim();
+        fileContents = fs.readFileSync('./test.txt', 'utf8');
+        return fileContents.replace(/\n/g, '\\n');
       }
     }]
   }
