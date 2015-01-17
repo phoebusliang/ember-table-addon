@@ -17,8 +17,12 @@ var app = new EmberAddon({
       '**/*'
     ],
     patterns: [{
-      match: /@@{(foo)}/,
-      replacement: 'Bam $1 Bam'
+      match: /@@{.*}/,
+      replacement: function(matchedText) {
+        filename = matchedText.slice(3, -1);
+        fullFilename = './tests/dummy/app/' + filename;
+        return fs.readFileSync('./test.txt', 'utf8').trim();
+      }
     }]
   }
 });
