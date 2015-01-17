@@ -33,7 +33,8 @@
     "express": "^4.8.5",
     "glob": "^4.0.5",
     "grunt": "~0.4.1",
-    "grunt-release-it": "~0.2.0"
+    "grunt-release-it": "~0.2.0",
+    "ember-cli-replace": "~0.1.0"
   },
   "keywords": [
     "ember-addon"
