@@ -26,17 +26,11 @@ var app = new EmberAddon({
       '**/*'
     ],
     patterns: [{
-      match: /@@{.*}/,
+      match: /@@{[^}]*}/,
       replacement: function(matchedText) {
         // I'm going insane
         var matchedLength = matchedText.length;
         var cutLength = matchedLength - 4;
-
-        // If I do this, everything works fine
-        var filename = matchedText.substr(3, 21);
-
-        // If I do this, this function returns 21
-        // return cutLength;
 
         // BUT If I do this, the console spits out major errors. It appears the
         // string has overflowed.
