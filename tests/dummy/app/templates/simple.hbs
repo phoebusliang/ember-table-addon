@@ -1,4 +1,3 @@
-{{!-- Content Column --}}
 <div class="col-md-10 col-md-offset-2 left-border main-content-container">
   <h1>Ember Table <small>Simple</small></h1>
 
@@ -6,34 +5,22 @@
     <div class="col-md-12">
       <div class="example-container">
         <div class="ember-table-example-container">
-          {{table-component
-            hasFooter=false
-            enableContentSelection=true
-            columns=columns
-            content=content
-          }}
+          {{partial "simple-table/simple-table"}}
         </div>
       </div>
     </div>
 
     <div class="col-md-12 bumper-30">
-      <h3>application.hbs</h3>
+      <h3>Template</h3>
       <div class="highlight">
-<pre class="prettyprint lang-html">&#123;&#123;table-component
-  hasFooter=false
-  enableContentSelection=true
-  columns=columns
-  content=content
-&#125;&#125;</pre>
+        <pre class="prettyprint lang-html">@@{templates/simple-table/simple-table.hbs}</pre>
       </div>
     </div>
 
     <div class="col-md-12 bumper-30">
-      <h3>application_controller.coffee</h3>
+      <h3>Controller</h3>
       <div class="highlight">
-<pre class="prettyprint lang-coffee">
-@@{controllers/simple.js}
-</pre>
+        <pre class="prettyprint lang-js">@@{controllers/simple.js}</pre>
       </div>
     </div>
   </div>

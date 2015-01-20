@@ -1,4 +1,3 @@
-{{!-- Content Column --}}
 <div class="col-md-10 col-md-offset-2 left-border main-content-container">
   <h1>Ember Table <small>Dynamic Bar</small></h1>
 
@@ -6,103 +5,37 @@
     <div class="col-md-12">
       <div class="example-container">
         <div class="ember-table-example-container">
-          {{table-component
-            hasHeader=true
-            hasFooter=false
-            rowHeight=30
-            columnsBinding="columns"
-            contentBinding="content"
-          }}
+          {{partial "dynamic-bar-table/dynamic-bar-table"}}
         </div>
       </div>
     </div>
 
     <div class="col-md-12 bumper-30">
-      <h3>application.hbs</h3>
+      <h3>Template</h3>
       <div class="highlight">
-<pre class="prettyprint lang-html">&#123;&#123;table-component
-  hasFooter=false
-  columnsBinding="columns"
-  contentBinding="content"
-&#125;&#125;</pre>
+        <pre class="prettyprint lang-html">@@{templates/dynamic-bar-table/dynamic-bar-table.hbs}</pre>
       </div>
     </div>
 
     <div class="col-md-12 bumper-30">
-      <h3>bar_table_cell.hbs</h3>
+      <h3>Bar Table Cell</h3>
       <div class="highlight">
-<pre class="prettyprint lang-html">&lt;span class=&quot;bar-cell&quot; &#123;&#123;bind-attr style=&quot;view.histogramStyle&quot;&#125;&#125;&gt;&lt;/span&gt;</pre>
+        <pre class="prettyprint lang-html">@@{templates/bar-table/bar-cell.hbs}</pre>
       </div>
     </div>
 
     <div class="col-md-12 bumper-30">
-      <h3>bar_table_cell_view.coffee</h3>
+      <h3>Controller</h3>
       <div class="highlight">
-<pre class="prettyprint lang-coffee">App.BarTableCellView = Ember.Table.TableCell.extend
-  templateName:     'ember_table/bar_table/bar'
-  classNameBindings:['column.color']
-  barWidth: Ember.computed ->
-    {column, row} = @getProperties 'column', 'row'
-    return 0 unless column and row
-    Math.round(+@get('cellContent'))
-  .property 'column', 'row', 'cellContent'
-
-  histogramStyle: Ember.computed ->
-    "width: #{@get('barWidth')}%;"
-  .property 'barWidth'</pre>
+        <pre class="prettyprint lang-coffee">@@{controllers/dynamic-bars.js}</pre>
       </div>
     </div>
-
 
     <div class="col-md-12 bumper-30">
-      <h3>application_controller.coffee</h3>
+      <h3>Bar Table Cell</h3>
       <div class="highlight">
-<pre class="prettyprint lang-coffee">App.ApplicationController = Ember.Controller.extend
-  numRows: 100
-
-  getNextValue: (current) ->
-    current = current + (Math.random() * 10 - 5)
-    current = Math.min(100, current)
-    current = Math.max(0, current)
-    current
-
-  init: ->
-    setInterval =>
-      @get('content').forEach (item) =>
-        item.set 'value1', @getNextValue(item.get('value1'))
-        item.set 'value2', @getNextValue(item.get('value2'))
-        item.set 'value3', @getNextValue(item.get('value3'))
-        item.set 'value4', @getNextValue(item.get('value4'))
-        item.set 'value5', @getNextValue(item.get('value5'))
-    , 1500
-
-  columns: Ember.computed ->
-    colors  = ['blue', 'teal', 'green', 'yellow', 'orange']
-    column1 = Ember.Table.ColumnDefinition.create
-      columnWidth:    50
-      headerCellName: 'Name'
-      contentPath: 'key'
-    columns = colors.map (color, index) ->
-      Ember.Table.ColumnDefinition.create
-        color: color
-        headerCellName: 'Bar'
-        tableCellViewClass: 'App.BarTableCell'
-        contentPath: "value#{index + 1}"
-    columns.unshift(column1)
-    columns
-
-  content: Ember.computed ->
-    [0...@get('numRows')].map (num, index) ->
-      Ember.Object.create
-        key: index
-        value1: Math.random() * 80 + 10
-        value2: Math.random() * 80 + 10
-        value3: Math.random() * 80 + 10
-        value4: Math.random() * 80 + 10
-        value5: Math.random() * 80 + 10
-  .property 'numRows'</pre>
+        <pre class="prettyprint lang-coffee">@@{views/bar-table-cell.js}</pre>
       </div>
     </div>
-
   </div>
 </div>

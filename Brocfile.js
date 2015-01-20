@@ -3,6 +3,11 @@
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 var fs = require('fs');
 
+// FIXME(azirbel): Use something more legit
+function htmlEntities(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 var app = new EmberAddon({
   lessOptions: {
     paths: [
@@ -21,12 +26,12 @@ var app = new EmberAddon({
       '**/*'
     ],
     patterns: [{
-      match: /@@{[^}]*}/,
+      match: /@@{[^}]*}/g,
       replacement: function(matchedText) {
         filename = matchedText.slice(3, -1);
         fullFilename = './tests/dummy/app/' + filename;
         fileContents = fs.readFileSync(fullFilename, 'utf8');
-        return fileContents.replace(/\n/g, '\\n');
+        return htmlEntities(fileContents).replace(/\n/g, '\\n');
       }
     }]
   }
