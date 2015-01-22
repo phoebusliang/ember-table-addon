@@ -1,18 +1,15 @@
-/* global _ */
-
 import Ember from 'ember';
 import ColumnDefinition from 'ember-table/models/column-definition';
 
 export default Ember.Controller.extend({
-  columns: Ember.computed(function() {
-    var colors, column1, columns;
-    colors = ['blue', 'teal', 'green', 'yellow', 'orange'];
-    column1 = ColumnDefinition.create({
+  columns: function() {
+    var colors = ['blue', 'teal', 'green', 'yellow', 'orange'];
+    var firstColumn = ColumnDefinition.create({
       savedWidth: 50,
       headerCellName: 'Name',
       contentPath: 'key'
     });
-    columns = colors.map(function(color, index) {
+    var columns = colors.map(function(color, index) {
       return ColumnDefinition.create({
         color: color,
         headerCellName: 'Bar',
@@ -20,10 +17,11 @@ export default Ember.Controller.extend({
         contentPath: "value" + (index + 1)
       });
     });
-    columns.unshift(column1);
+    columns.unshift(firstColumn);
     return columns;
-  }),
-  content: Ember.computed(function() {
+  }.property(),
+
+  content: function() {
     return _.range(100).map(function(index) {
       return {
         key: index,
@@ -34,5 +32,5 @@ export default Ember.Controller.extend({
         value5: Math.random() * 80 + 10
       };
     });
-  })
+  }.property()
 });

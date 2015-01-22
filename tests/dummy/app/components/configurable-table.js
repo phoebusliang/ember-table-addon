@@ -1,9 +1,11 @@
-import Ember from 'ember';
 import TableComponent from 'ember-table/components/ember-table';
 
-// FIXME(azirbel): Migrate comments
+// TODO(azirbel): We extend this to create a very hacky way of calling
+// `@onResizeEnd` in the table, triggered by resizing the table's container. We
+// only need to do this because the table currently does a bad job detecting
+// when its width has changed.
 export default TableComponent.extend({
-  parentWidthObserver: Ember.observer(function() {
+  parentWidthObserver: function() {
     return this.onResizeEnd();
-  }, 'parentWidth')
+  }.observes('parentWidth')
 });

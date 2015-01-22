@@ -1,20 +1,32 @@
 import Ember from 'ember';
-import ConfigurableColumnDefinition from '../views/configurable-column-definition';
+import ConfigurableColumnDefinition from
+  '../views/configurable-column-definition';
 
 export default Ember.Controller.extend({
-  numRows: 100,
   isFluid: false,
-  columnMode: Ember.computed(function() {
+  showTable: true,
+
+  // We bind the container width to a `parentWidth` property on the
+  // `ConfigurableTableComponent`. Then we extend the table to force it to
+  // handle resizes whenever the `parentWidth` changes. This is a hack - the
+  // table should take care of resizing to available width on its own, but for
+  // now we need this to make the demo work.
+  demoTableWidth: null,
+
+  columnMode: function() {
     if (this.get('isFluid')) {
       return 'fluid';
     } else {
       return 'standard';
     }
-  }).property('isFluid'),
-  showTable: true,
-  columns: Ember.computed(function() {
-    var closeColumn, dateColumn, highColumn, lowColumn, openColumn;
-    dateColumn = ConfigurableColumnDefinition.create({
+  }.property('isFluid'),
+
+  updateDemoTableWidth: function(newWidth) {
+    return this.set('demoTableWidth', newWidth);
+  },
+
+  columns: function() {
+    var dateColumn = ConfigurableColumnDefinition.create({
       textAlign: 'text-align-left',
       headerCellName: 'Date',
       minWidth: 150,
@@ -22,41 +34,36 @@ export default Ember.Controller.extend({
         return row.get('date').toDateString();
       }
     });
-    openColumn = ConfigurableColumnDefinition.create({
+    var openColumn = ConfigurableColumnDefinition.create({
       headerCellName: 'Open',
       getCellContent: function(row) {
         return row.get('open').toFixed(2);
       }
     });
-    highColumn = ConfigurableColumnDefinition.create({
+    var highColumn = ConfigurableColumnDefinition.create({
       headerCellName: 'High',
       getCellContent: function(row) {
         return row.get('high').toFixed(2);
       }
     });
-    lowColumn = ConfigurableColumnDefinition.create({
+    var lowColumn = ConfigurableColumnDefinition.create({
       headerCellName: 'Low',
       getCellContent: function(row) {
         return row.get('low').toFixed(2);
       }
     });
-    closeColumn = ConfigurableColumnDefinition.create({
+    var closeColumn = ConfigurableColumnDefinition.create({
       headerCellName: 'Close',
       getCellContent: function(row) {
         return row.get('close').toFixed(2);
       }
     });
     return [dateColumn, openColumn, highColumn, lowColumn, closeColumn];
-  }),
-  content: Ember.computed(function() {
-    var _results;
-    return (function() {
-      _results = [];
-      for (var _i = 0, _ref = this.get('numRows'); 0 <= _ref ? _i < _ref : _i > _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
-      return _results;
-    }).apply(this).map(function(index) {
-      var date;
-      date = new Date();
+  }.property(),
+
+  content: function() {
+    return _.range(100).map(function(index) {
+      var date = new Date();
       date.setDate(date.getDate() + index);
       return {
         date: date,
@@ -67,14 +74,13 @@ export default Ember.Controller.extend({
         volume: Math.random() * 1000000
       };
     });
-  }).property('numRows'),
-  demoTableWidth: void 0,
-  updateDemoTableWidth: function(newWidth) {
-    return this.set('demoTableWidth', newWidth);
-  },
+  }.property(),
+
   actions: {
+    // Pulls the table out of and back into the DOM
     refreshTable: function() {
       this.set('showTable', false);
+      // FIXME(azirbel): Grep for _this and fix it
       return Ember.run.next((function(_this) {
         return function() {
           return _this.set('showTable', true);

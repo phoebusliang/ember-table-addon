@@ -5,6 +5,7 @@ var Router = Ember.Router.extend({
   location: config.locationType
 });
 
+// FIXME(azirbel): Migrate comments
 // FIXME(azirbel): Stop logging generated routes, once the app is working well
 
 Router.map(function() {

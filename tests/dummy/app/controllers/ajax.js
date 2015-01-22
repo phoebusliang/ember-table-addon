@@ -4,16 +4,15 @@ import AjaxTableLazyDataSource from '../views/ajax-table-lazy-data-source';
 
 export default Ember.Controller.extend({
   // FIXME(azirbel): Change all of these to "tableColumns" and "tableContent"
-  columns: Ember.computed(function() {
-    var avatar, columnNames, columns;
-    avatar = ColumnDefinition.create({
+  columns: function() {
+    var avatar = ColumnDefinition.create({
       savedWidth: 80,
       headerCellName: 'avatar',
       tableCellViewClass: 'ajax-image-table-cell',
       contentPath: 'avatar'
     });
-    columnNames = ['login', 'type', 'createdAt'];
-    columns = columnNames.map(function(key) {
+    var columnNames = ['login', 'type', 'createdAt'];
+    var columns = columnNames.map(function(key) {
       return ColumnDefinition.create({
         savedWidth: 150,
         headerCellName: key.w(),
@@ -22,11 +21,11 @@ export default Ember.Controller.extend({
     });
     columns.unshift(avatar);
     return columns;
-  }),
-  content: Ember.computed(function() {
+  }.property(),
+
+  content: function() {
     return AjaxTableLazyDataSource.create({
       content: new Array(100)
     });
-  }).property('numRows')
+  }.property()
 });
-

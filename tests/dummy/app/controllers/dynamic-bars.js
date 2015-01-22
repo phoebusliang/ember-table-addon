@@ -1,15 +1,7 @@
-/* global _ */
-
 import Ember from 'ember';
 import ColumnDefinition from 'ember-table/models/column-definition';
 
 export default Ember.Controller.extend({
-  getNextValue: function(current) {
-    current = current + (Math.random() * 10 - 5);
-    current = Math.min(100, current);
-    current = Math.max(0, current);
-    return current;
-  },
   init: function() {
     return setInterval((function(_this) {
       return function() {
@@ -23,15 +15,22 @@ export default Ember.Controller.extend({
       };
     })(this), 1500);
   },
-  columns: Ember.computed(function() {
-    var colors, column1, columns;
-    colors = ['blue', 'teal', 'green', 'yellow', 'orange'];
-    column1 = ColumnDefinition.create({
+
+  getNextValue: function(current) {
+    current = current + (Math.random() * 10 - 5);
+    current = Math.min(100, current);
+    current = Math.max(0, current);
+    return current;
+  },
+
+  columns: function() {
+    var colors = ['blue', 'teal', 'green', 'yellow', 'orange'];
+    var firstColumn = ColumnDefinition.create({
       savedWidth: 50,
       headerCellName: 'Name',
       contentPath: 'key'
     });
-    columns = colors.map(function(color, index) {
+    var columns = colors.map(function(color, index) {
       return ColumnDefinition.create({
         color: color,
         headerCellName: 'Bar',
@@ -39,10 +38,11 @@ export default Ember.Controller.extend({
         contentPath: "value" + (index + 1)
       });
     });
-    columns.unshift(column1);
+    columns.unshift(firstColumn);
     return columns;
-  }),
-  content: Ember.computed(function() {
+  }.property(),
+
+  content: function() {
     return _.range(100).map(function(index) {
       return Ember.Object.create({
         key: index,
@@ -53,6 +53,5 @@ export default Ember.Controller.extend({
         value5: Math.random() * 80 + 10
       });
     });
-  })
+  }.property()
 });
-

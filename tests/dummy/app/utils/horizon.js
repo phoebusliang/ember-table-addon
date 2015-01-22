@@ -1,5 +1,3 @@
-/* global d3 */
-
 // FIXME(azirbel): Where does this helper belong?
 var d3Horizon = function() {
   var bands = 1, // between 1 and 5, typically

@@ -1,13 +1,10 @@
-/* global _ */
-
 import Ember from 'ember';
 import ColumnDefinition from 'ember-table/models/column-definition';
 
 export default Ember.Controller.extend({
-  columns: Ember.computed(function() {
-    var columnNames, columns, dateColumn, ratingColumn;
-    columnNames = ['open', 'close'];
-    dateColumn = ColumnDefinition.create({
+  columns: function() {
+    var columnNames = ['open', 'close'];
+    var dateColumn = ColumnDefinition.create({
       savedWidth: 100,
       headerCellName: 'Date',
       tableCellViewClass: 'date-picker-table-cell',
@@ -18,7 +15,7 @@ export default Ember.Controller.extend({
         return row.set('date', value);
       }
     });
-    ratingColumn = ColumnDefinition.create({
+    var ratingColumn = ColumnDefinition.create({
       savedWidth: 150,
       headerCellName: 'Analyst Rating',
       tableCellViewClass: 'rating-table-cell',
@@ -27,7 +24,7 @@ export default Ember.Controller.extend({
         return row.set('rating', value);
       }
     });
-    columns = columnNames.map(function(key) {
+    var columns = columnNames.map(function(key) {
       var name;
       name = key.charAt(0).toUpperCase() + key.slice(1);
       return ColumnDefinition.create({
@@ -45,8 +42,9 @@ export default Ember.Controller.extend({
     columns.unshift(ratingColumn);
     columns.unshift(dateColumn);
     return columns;
-  }).property(),
-  content: Ember.computed(function() {
+  }.property(),
+
+  content: function() {
     return _.range(100).map(function(index) {
       var date = new Date();
       date.setDate(date.getDate() + index);
@@ -58,5 +56,5 @@ export default Ember.Controller.extend({
         rating: Math.round(Math.random() * 4)
       };
     });
-  })
+  }.property()
 });
