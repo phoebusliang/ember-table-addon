@@ -2,26 +2,7 @@ import Ember from 'ember';
 import TableComponent from 'ember-table/components/ember-table';
 import ColumnDefinition from 'ember-table/models/column-definition';
 import FinancialTableTreeRow from '../views/financial-table-tree-row';
-
-// HACK: Used to help format table cells, should be refactored or use a library
-// FIXME(azirbel): Should be a handlebars helper
-var NumberHelper = {};
-NumberHelper.toCurrency = function(num) {
-  var value;
-  if (isNaN(num) || !isFinite(num)) {
-    return '-';
-  }
-  value = Math.abs(num).toFixed(2);
-  value = value.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-  return (num < 0 ? '-$' : '$') + value;
-};
-
-NumberHelper.toPercent = function(num) {
-  if (isNaN(num) || !isFinite(num)) {
-    return '-';
-  }
-  return Math.abs(num * 100).toFixed(2) + '%';
-};
+import NumberFormatHelpers from '../utils/number-format';
 
 export default TableComponent.extend({
   // Overriding default properties
@@ -58,10 +39,10 @@ export default TableComponent.extend({
         getCellContent: function(row) {
           var object = row.get('values')[this.get('index')];
           if (object.type === 'money') {
-            return NumberHelper.toCurrency(object.value);
+            return NumberFormatHelpers.toCurrency(object.value);
           }
           if (object.type === 'percent') {
-            return NumberHelper.toPercent(object.value);
+            return NumberFormatHelpers.toPercent(object.value);
           }
           return "-";
         }

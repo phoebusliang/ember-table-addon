@@ -39,20 +39,15 @@ module.exports = function(environment) {
      * NOTE: This is used by ember-cli-content-security-policy.
      */
     contentSecurityPolicy: {
-      'default-src': "ghbtns.com",
-      'script-src': "'self' 'unsafe-eval' api.github.com",
-      'font-src': "'self' fast.fonts.net",
-      'connect-src': "'self'",
-      'img-src': "'self' avatars.githubusercontent.com",
-      'style-src': "'self' 'unsafe-inline' fast.fonts.net",
+      'default-src': "'self'",
+      'script-src': "'self' 'unsafe-eval'",
+      'font-src': "'self'",
+      'connect-src': "'self' api.github.com",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
       'media-src': "'self'"
     }
   };
-
-  // Makes the app work when deployed to gh-pages
-  if (environment === 'production') {
-    ENV.baseURL = '/ember-table-addon/';
-  }
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -74,8 +69,9 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
+  // Makes the app work when deployed to gh-pages
   if (environment === 'production') {
-
+    ENV.baseURL = '/ember-table-addon/';
   }
 
   return ENV;

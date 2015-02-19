@@ -2,7 +2,7 @@
 
 import Ember from 'ember';
 import TableCell from 'ember-table/views/table-cell';
-import d3Horizon from '../utils/horizon';
+import d3HorizonUtils from '../utils/horizon';
 
 export default TableCell.extend({
   template: Ember.Handlebars.compile(""),
@@ -30,7 +30,7 @@ export default TableCell.extend({
     width = this.get('width');
     height = this.get('height');
     data = this.get('horizonContent');
-    chart = d3Horizon().width(width).height(height).bands(2).mode("mirror").interpolate("basis");
+    chart = d3HorizonUtils.d3Horizon().width(width).height(height).bands(2).mode("mirror").interpolate("basis");
     svg = d3.select('#' + this.get('elementId')).append("svg").attr("width", width).attr("height", height);
     return svg.data([data]).call(chart);
   }
