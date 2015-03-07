@@ -1,1 +1,3 @@
-export default Ember.Table.TableContainer
+import Ember from 'ember';
+
+export default Ember.Table.TableContainer;
