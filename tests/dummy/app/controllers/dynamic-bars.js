@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   init: function() {
     var _this = this;
     setInterval(function() {
-      return _this.get('content').forEach(function(item) {
+      return _this.get('tableContent').forEach(function(item) {
         item.set('value1', _this.getNextValue(item.get('value1')));
         item.set('value2', _this.getNextValue(item.get('value2')));
         item.set('value3', _this.getNextValue(item.get('value3')));
