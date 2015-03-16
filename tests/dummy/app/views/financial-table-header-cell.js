@@ -1,5 +1,5 @@
-import TableCell from 'ember-table/views/table-cell';
+import HeaderCell from '../views/header-cell';
 
-export default TableCell.extend({
+export default HeaderCell.extend({
   templateName: 'financial-table/financial-table-header-cell'
 });

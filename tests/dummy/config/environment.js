@@ -48,7 +48,7 @@ module.exports = function(environment) {
       'connect-src': "'self' api.github.com",
       'img-src': "'self' ghbtns.com avatars.githubusercontent.com",
       'style-src': "'self' 'unsafe-inline' fast.fonts.net",
-      'media-src': "'self'"
+      'media-src': "'self'",
     }
   };
 

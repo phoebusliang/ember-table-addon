@@ -2,16 +2,15 @@
 // Import other LESS & CSS
 // -----------------------------------------------------------------------------
 
-// External Libraries on which addepar-components.css relies
-// -------------------------
-@import "../../../../bower_components/bootstrap/less/bootstrap.less";
-// FIXME(azirbel): Import styles
-//@import '../lib/jquery-ui/themes/base/jquery-ui.css';
+// FIXME(azirbel): We don't import jQuery UI into a host app. Do we need to? Do
+// we even need jQuery UI CSS?
+@import '../../bower_components/bootstrap/less/bootstrap.less';
+@import '../../bower_components/jquery-ui/themes/base/jquery-ui.css';
 
 // Ember Table
 // -------------------------
-// FIXME(azirbel): Import styles
-//@import '../../../../app/styles/ember-table.less';
+@import '../../addon/styles/addon.less';
+@import '../../addon/styles/themes/financial.less';
 
 // Addepar Open Source
 // -------------------------

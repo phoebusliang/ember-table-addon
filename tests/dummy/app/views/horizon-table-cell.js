@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import TableCell from 'ember-table/views/table-cell';
+import TableCell from '../views/table-cell';
 import d3HorizonUtils from '../utils/horizon';
 
 export default TableCell.extend({
-  template: Ember.Handlebars.compile(''),
+  templateName: 'empty-cell',
   heightBinding: 'controller.rowHeight',
 
   horizonContent: Ember.computed(function() {
