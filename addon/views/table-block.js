@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import StyleBindingsMixin from '../mixins/style-bindings';
+import RegisterTableComponentMixin from '../mixins/register-table-component';
 
 // TODO: This should be a mixin
 export default Ember.CollectionView.extend(
-Ember.AddeparMixins.StyleBindingsMixin,
-Ember.Table.RegisterTableComponentMixin, {
+StyleBindingsMixin, RegisterTableComponentMixin, {
   classNames: ['ember-table-table-block'],
   styleBindings: ['width', 'height'],
   itemViewClass: Ember.computed.alias('tableComponent.tableRowViewClass'),

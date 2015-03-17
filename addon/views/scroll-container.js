@@ -1,8 +1,9 @@
 import Ember from 'ember';
+import StyleBindingsMixin from '../mixins/style-bindings';
+import RegisterTableComponentMixin from '../mixins/register-table-component';
 
 export default Ember.View.extend(
-Ember.AddeparMixins.StyleBindingsMixin, Ember.ScrollHandlerMixin,
-Ember.Table.RegisterTableComponentMixin, {
+StyleBindingsMixin, Ember.ScrollHandlerMixin, RegisterTableComponentMixin, {
   templateName: 'scroll-container',
   classNames: ['ember-table-scroll-container'],
   styleBindings: ['left', 'width', 'height'],

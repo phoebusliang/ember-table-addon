@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import StyleBindingsMixin from '../mixins/style-bindings';
 
-export default Ember.View.extend(Ember.AddeparMixins.StyleBindingsMixin, {
-
+export default Ember.View.extend(
+StyleBindingsMixin, {
   // ---------------------------------------------------------------------------
   // API - Inputs
   // ---------------------------------------------------------------------------

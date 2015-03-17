@@ -1,9 +1,9 @@
 import Ember from 'ember';
+import StyleBindingsMixin from '../mixins/style-bindings';
+import RegisterTableComponentMixin from '../mixins/register-table-component';
 
 export default Ember.View.extend(
-Ember.AddeparMixins.StyleBindingsMixin,
-Ember.Table.RegisterTableComponentMixin, {
-
+StyleBindingsMixin, RegisterTableComponentMixin, {
   // ---------------------------------------------------------------------------
   // API - Inputs
   // ---------------------------------------------------------------------------

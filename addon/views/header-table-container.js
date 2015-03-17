@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import TableContainer from '../views/table-container';
+import ShowHorizontalScrollMixin from '../mixins/show-horizontal-scroll';
+import RegisterTableComponentMixin from '../mixins/register-table-component';
 
-// FIXME(azirbel): Make sure to remove globals like this
-export default Ember.Table.TableContainer.extend(
-Ember.Table.ShowHorizontalScrollMixin,
-Ember.Table.RegisterTableComponentMixin, {
+export default TableContainer.extend(
+ShowHorizontalScrollMixin, RegisterTableComponentMixin, {
   templateName: 'header-container',
   classNames: ['ember-table-table-container',
       'ember-table-fixed-table-container',

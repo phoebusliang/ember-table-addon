@@ -1,11 +1,16 @@
 import Ember from 'ember';
+import TableContainer from '../views/table-container';
+import ShowHorizontalScrollMixin from '../mixins/show-horizontal-scroll';
+import RegisterTableComponentMixin from '../mixins/register-table-component';
 
-export default Ember.Table.TableContainer.extend(
+export default TableContainer.extend(
 Ember.MouseWheelHandlerMixin, Ember.TouchMoveHandlerMixin,
-Ember.ScrollHandlerMixin, Ember.Table.ShowHorizontalScrollMixin,
-Ember.Table.RegisterTableComponentMixin, {
+Ember.ScrollHandlerMixin, ShowHorizontalScrollMixin,
+RegisterTableComponentMixin, {
   templateName: 'body-container',
-  classNames: ['ember-table-table-container', 'ember-table-body-container', 'antiscroll-wrap'],
+  classNames: ['ember-table-table-container',
+      'ember-table-body-container',
+      'antiscroll-wrap'],
 
   height: Ember.computed.alias('tableComponent._bodyHeight'),
   width: Ember.computed.alias('tableComponent._width'),

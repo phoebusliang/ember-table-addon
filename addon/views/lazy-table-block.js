@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import RegisterTableComponentMixin from '../mixins/register-table-component';
 
 export default Ember.LazyContainerView.extend(
-Ember.Table.RegisterTableComponentMixin, {
+RegisterTableComponentMixin, {
   classNames: ['ember-table-table-block'],
   styleBindings: ['width'],
   itemViewClass: Ember.computed.alias('tableComponent.tableRowViewClass'),
