@@ -159,7 +159,7 @@ StyleBindingsMixin, ResizeHandlerMixin, {
       itemController: Ember.Table.Row,
       content: this.get('content')
     });
-  }).property('content'),
+  }).property('content.[]'),
 
   // An array of Ember.Table.Row
   footerContent: Ember.computed(function(key, value) {
