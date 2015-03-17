@@ -1,3 +1,3 @@
-import Ember from 'ember';
+import EmberTable from 'ember-table/components/ember-table';
 
-export default Ember.Table.EmberTableComponent;
+export default EmberTable;
