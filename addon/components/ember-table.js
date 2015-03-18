@@ -1,10 +1,11 @@
 import Ember from 'ember';
-import StyleBindingsMixin from '../mixins/style-bindings';
-import ResizeHandlerMixin from '../mixins/resize-handler';
+import StyleBindingsMixin from 'ember-table/mixins/style-bindings';
+import ResizeHandlerMixin from 'ember-table/mixins/resize-handler';
+import RowArrayController from 'ember-table/controllers/row-array';
+import TableRow from 'ember-table/controllers/row';
 
 export default Ember.Component.extend(
 StyleBindingsMixin, ResizeHandlerMixin, {
-  layoutName: 'components/ember-table',
   classNames: ['ember-table-tables-container'],
   classNameBindings: ['enableContentSelection:ember-table-content-selectable'],
 
@@ -152,11 +153,11 @@ StyleBindingsMixin, ResizeHandlerMixin, {
 
   // An array of Ember.Table.Row computed based on `content`
   bodyContent: Ember.computed(function() {
-    return Ember.Table.RowArrayController.create({
+    return RowArrayController.create({
       target: this,
       parentController: this,
       container: this.get('container'),
-      itemController: Ember.Table.Row,
+      itemController: TableRow,
       content: this.get('content')
     });
   }).property('content.[]'),
@@ -259,7 +260,8 @@ StyleBindingsMixin, ResizeHandlerMixin, {
       return;
     }
     // updating antiscroll
-    this.$('.antiscroll-wrap').antiscroll().data('antiscroll').rebuild();
+    // FIXME(azirbel): Restore
+    // this.$('.antiscroll-wrap').antiscroll().data('antiscroll').rebuild();
     if (this.get('columnsFillTable')) {
       return this.doForceFillColumns();
     }

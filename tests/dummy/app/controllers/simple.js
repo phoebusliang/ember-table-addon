@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ColumnDefinition from 'ember-table/models/column-definition';
+import EmberTable from 'ember-table/components/ember-table';
 
 export default Ember.Controller.extend({
   tableColumns: Ember.computed(function() {
