@@ -5,7 +5,6 @@ import RegisterTableComponentMixin from 'ember-table/mixins/register-table-compo
 
 export default TableContainer.extend(
 ShowHorizontalScrollMixin, RegisterTableComponentMixin, {
-  templateName: 'header-container',
   classNames: ['ember-table-table-container',
       'ember-table-fixed-table-container',
       'ember-table-header-container'],
