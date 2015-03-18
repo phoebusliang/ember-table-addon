@@ -1,9 +1,8 @@
-Something
 <div class="antiscroll-box">
   <div class="antiscroll-inner">
     <div class="ember-table-table-scrollable-wrapper">
       {{#if controller.numFixedColumns}}
-        {{view Ember.Table.LazyTableBlock classNames="ember-table-left-table-block"
+        {{view "lazy-table-block" classNames="ember-table-left-table-block"
           contentBinding="controller.bodyContent"
           columnsBinding="controller.fixedColumns"
           widthBinding="controller._fixedBlockWidth"
@@ -12,7 +11,7 @@ Something
           startIndexBinding="controller._startIndex"
         }}
       {{/if}}
-      {{view Ember.Table.LazyTableBlock classNames="ember-table-right-table-block"
+      {{view "lazy-table-block" classNames="ember-table-right-table-block"
         contentBinding="controller.bodyContent"
         columnsBinding="controller.tableColumns"
         scrollLeftBinding="controller._tableScrollLeft"
