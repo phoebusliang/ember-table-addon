@@ -139,7 +139,8 @@ StyleBindingsMixin, ResizeHandlerMixin, {
 
   // TODO(new-api): eliminate view alias
   // specify the view class to use for rendering the table rows
-  tableRowView: 'Ember.Table.TableRow',
+  // FIXME(azirbel): Possibly creating createChildViews error
+  tableRowView: 'table-row',
   tableRowViewClass: Ember.computed.alias('tableRowView'),
 
   onColumnSort: function(column, newIndex) {
