@@ -6,6 +6,7 @@ import NumberFormatHelpers from '../utils/number-format';
 
 export default TableComponent.extend({
   // Overriding default properties
+  templateName: 'components/ember-table',
   numFixedColumns: 1,
   isCollapsed: false,
   isHeaderHeightResizable: true,
