@@ -21,7 +21,7 @@ StyleBindingsMixin, {
     return this.get('numItemsShowing') + 2;
   }).property('numItemsShowing'),
   onNumChildViewsDidChange: Ember.observer(function() {
-    var itemViewClass, newNumViews, numViewsToInsert, oldNumViews, view, viewsToAdd, viewsToRemove;
+    var itemViewClass, newNumViews, numViewsToInsert, oldNumViews, view, viewsToRemove;
     view = this;
     itemViewClass = this.get('itemViewClass');
     if (typeof itemViewClass === 'string') {
@@ -35,7 +35,7 @@ StyleBindingsMixin, {
     if (!(itemViewClass && newNumViews)) {
       return;
     }
-    oldNumViews = this.get('length');
+    oldNumViews = this.get('childViews.length');
     numViewsToInsert = newNumViews - oldNumViews;
     if (numViewsToInsert < 0) {
       viewsToRemove = this.slice(newNumViews, oldNumViews);
@@ -45,12 +45,15 @@ StyleBindingsMixin, {
         this.pushObject(view.createChildView(itemViewClass));
       }
     }
+    this.viewportDidChange();
   }, 'numChildViews', 'itemViewClass'),
+
   viewportDidChange: Ember.observer(function() {
-    var clength, content, numShownViews, startIndex;
-    content = this.get('content') || [];
+    var clength, content, numShownViews, startIndex, childViews;
+    childViews = this.get('childViews');
+    content = this.getWithDefault('content', []);
     clength = content.get('length');
-    numShownViews = Math.min(this.get('length'), clength);
+    numShownViews = Math.min(childViews.get('length'), clength);
     startIndex = this.get('startIndex');
     if (startIndex + numShownViews >= clength) {
       startIndex = clength - numShownViews;
@@ -58,15 +61,14 @@ StyleBindingsMixin, {
     if (startIndex < 0) {
       startIndex = 0;
     }
-    return this.forEach(function(childView, i) {
+    return childViews.forEach(function(childView, i) {
       var item, itemIndex;
       if (i >= numShownViews) {
-        childView = this.objectAt(i);
         childView.set('content', null);
         return;
       }
       itemIndex = startIndex + i;
-      childView = this.objectAt(itemIndex % numShownViews);
+      childView = childViews.objectAt(itemIndex % numShownViews);
       item = content.objectAt(itemIndex);
       if (item !== childView.get('content')) {
         childView.teardownContent();
@@ -75,5 +77,5 @@ StyleBindingsMixin, {
         return childView.prepareContent();
       }
     }, this);
-  }, 'content.length', 'length', 'startIndex')
+  }, 'content.length', 'startIndex')
 });
