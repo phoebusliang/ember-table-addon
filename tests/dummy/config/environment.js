@@ -50,7 +50,6 @@ module.exports = function(environment) {
       'img-src': "'self' ghbtns.com avatars.githubusercontent.com",
       'style-src': "'self' 'unsafe-inline' fast.fonts.net",
       'media-src': "'self'",
-      'report-uri': 'http://' + environment.host +':' + environment.port + '/csp-report'
     }
   };
 
