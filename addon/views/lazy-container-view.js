@@ -21,7 +21,7 @@ StyleBindingsMixin, {
     return this.get('numItemsShowing') + 2;
   }).property('numItemsShowing'),
   onNumChildViewsDidChange: Ember.observer(function() {
-    var itemViewClass, newNumViews, numViewsToInsert, oldNumViews, view, viewsToAdd, viewsToRemove, _i, _results;
+    var itemViewClass, newNumViews, numViewsToInsert, oldNumViews, view, viewsToAdd, viewsToRemove;
     view = this;
     itemViewClass = this.get('itemViewClass');
     if (typeof itemViewClass === 'string') {
@@ -39,16 +39,11 @@ StyleBindingsMixin, {
     numViewsToInsert = newNumViews - oldNumViews;
     if (numViewsToInsert < 0) {
       viewsToRemove = this.slice(newNumViews, oldNumViews);
-      return this.removeObjects(viewsToRemove);
+      this.removeObjects(viewsToRemove);
     } else if (numViewsToInsert > 0) {
-      viewsToAdd = (function() {
-        _results = [];
-        for (var _i = 0; 0 <= numViewsToInsert ? _i < numViewsToInsert : _i > numViewsToInsert; 0 <= numViewsToInsert ? _i++ : _i--){ _results.push(_i); }
-        return _results;
-      }).apply(this).map(function() {
-        return view.createChildView(itemViewClass);
-      });
-      return this.pushObjects(viewsToAdd);
+      for (var i = 0; i < numViewsToInsert; ++i) {
+        this.pushObject(view.createChildView(itemViewClass));
+      }
     }
   }, 'numChildViews', 'itemViewClass'),
   viewportDidChange: Ember.observer(function() {
