@@ -45,7 +45,7 @@ StyleBindingsMixin, {
     var numViewsToInsert = newNumViews - oldNumViews;
     // if newNumViews < oldNumViews we need to remove some views
     if (numViewsToInsert < 0) {
-      viewsToRemove = this.slice(newNumViews, oldNumViews);
+      var viewsToRemove = this.slice(newNumViews, oldNumViews);
       this.removeObjects(viewsToRemove);
     // if oldNumViews < newNumViews we need to add more views
     } else if (numViewsToInsert > 0) {

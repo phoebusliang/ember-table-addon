@@ -41,7 +41,6 @@ module.exports = function(environment) {
      *
      * NOTE: This is used by ember-cli-content-security-policy.
      */
-    contentSecurityPolicyHeader: 'Content-Security-Policy-Report-Only',
     contentSecurityPolicy: {
       'default-src': "'self' ghbtns.com",
       'script-src': "'self' 'unsafe-eval' api.github.com",
