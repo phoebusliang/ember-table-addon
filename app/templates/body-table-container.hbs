@@ -1,24 +1,24 @@
 <div class="antiscroll-box">
   <div class="antiscroll-inner">
     <div class="ember-table-table-scrollable-wrapper">
-      {{#if controller.numFixedColumns}}
+      {{#if numFixedColumns}}
         {{view "lazy-table-block" classNames="ember-table-left-table-block"
-          contentBinding="controller.bodyContent"
-          columnsBinding="controller.fixedColumns"
-          widthBinding="controller._fixedBlockWidth"
-          numItemsShowingBinding="controller._numItemsShowing"
-          scrollTopBinding="controller._scrollTop"
-          startIndexBinding="controller._startIndex"
+          content=bodyContent
+          columns=fixedColumns
+          width=_fixedBlockWidth
+          numItemsShowing=_numItemsShowing
+          scrollTop=_scrollTop
+          startIndex=_startIndex
         }}
       {{/if}}
       {{view "lazy-table-block" classNames="ember-table-right-table-block"
-        contentBinding="controller.bodyContent"
-        columnsBinding="controller.tableColumns"
-        scrollLeftBinding="controller._tableScrollLeft"
-        widthBinding="controller._tableBlockWidth"
-        numItemsShowingBinding="controller._numItemsShowing"
-        scrollTopBinding="controller._scrollTop"
-        startIndexBinding="controller._startIndex"
+        content=bodyContent
+        columns=tableColumns
+        scrollLeft=_tableScrollLeft
+        width=_tableBlockWidth
+        numItemsShowing=_numItemsShowing
+        scrollTop=_scrollTop
+        startIndex=_startIndex
       }}
     </div>
   </div>

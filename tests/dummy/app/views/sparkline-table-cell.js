@@ -2,7 +2,7 @@ import Ember from 'ember';
 import TableCell from '../views/table-cell';
 
 export default TableCell.extend({
-  template: Ember.Handlebars.compile(''),
+  templateName: 'empty-cell',
   heightBinding: 'controller.rowHeight',
 
   onContentOrSizeDidChange: Ember.observer(function() {
