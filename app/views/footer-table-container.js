@@ -8,6 +8,7 @@ import TouchMoveHandlerMixin from 'ember-table/mixins/touch-move-handler';
 export default TableContainer.extend(
 MouseWheelHandlerMixin, TouchMoveHandlerMixin, ShowHorizontalScrollMixin,
 RegisterTableComponentMixin, {
+  templateName: 'footer-table-container',
   classNames: ['ember-table-table-container',
     'ember-table-fixed-table-container',
     'ember-table-footer-container'],
