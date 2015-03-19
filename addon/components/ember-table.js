@@ -139,7 +139,6 @@ StyleBindingsMixin, ResizeHandlerMixin, {
 
   // TODO(new-api): eliminate view alias
   // specify the view class to use for rendering the table rows
-  // FIXME(azirbel): Possibly creating createChildViews error
   tableRowView: 'table-row',
   tableRowViewClass: Ember.computed.alias('tableRowView'),
 
@@ -261,8 +260,7 @@ StyleBindingsMixin, ResizeHandlerMixin, {
       return;
     }
     // updating antiscroll
-    // FIXME(azirbel): Restore
-    // this.$('.antiscroll-wrap').antiscroll().data('antiscroll').rebuild();
+    this.$('.antiscroll-wrap').antiscroll().data('antiscroll').rebuild();
     if (this.get('columnsFillTable')) {
       return this.doForceFillColumns();
     }
