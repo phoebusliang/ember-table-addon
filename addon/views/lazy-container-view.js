@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import StyleBindingsMixin from 'ember-table/mixins/style-bindings';
 
-// FIXME(azirbel): Clean up JS
 export default Ember.ContainerView.extend(
 StyleBindingsMixin, {
   classNames: 'lazy-list-container',
@@ -11,36 +10,44 @@ StyleBindingsMixin, {
   rowHeight: null,
   scrollTop: null,
   startIndex: null,
+
   init: function() {
     this._super();
     return this.onNumChildViewsDidChange();
   },
+
   height: Ember.computed(function() {
     return this.get('content.length') * this.get('rowHeight');
   }).property('content.length', 'rowHeight'),
+
   numChildViews: Ember.computed(function() {
     return this.get('numItemsShowing') + 2;
   }).property('numItemsShowing'),
+
   onNumChildViewsDidChange: Ember.observer(function() {
-    var itemViewClass, newNumViews, numViewsToInsert, oldNumViews, view, viewsToRemove;
-    view = this;
-    itemViewClass = this.get('itemViewClass');
+    var view = this;
+    // We are getting the class from a string e.g. "Ember.Table.Row"
+    var itemViewClass = this.get('itemViewClass');
     if (typeof itemViewClass === 'string') {
       if (/[A-Z]+/.exec(itemViewClass)) {
+        // Global var lookup - 'App.MessagePreviewView'
         itemViewClass = Ember.get(Ember.lookup, itemViewClass);
       } else {
+        // Ember CLI Style lookup - 'message/preview'
         itemViewClass = this.container.lookupFactory("view:" + itemViewClass);
       }
     }
-    newNumViews = this.get('numChildViews');
-    if (!(itemViewClass && newNumViews)) {
+    var newNumViews = this.get('numChildViews');
+    if (!itemViewClass || !newNumViews) {
       return;
     }
-    oldNumViews = this.get('childViews.length');
-    numViewsToInsert = newNumViews - oldNumViews;
+    var oldNumViews = this.get('childViews.length');
+    var numViewsToInsert = newNumViews - oldNumViews;
+    // if newNumViews < oldNumViews we need to remove some views
     if (numViewsToInsert < 0) {
       viewsToRemove = this.slice(newNumViews, oldNumViews);
       this.removeObjects(viewsToRemove);
+    // if oldNumViews < newNumViews we need to add more views
     } else if (numViewsToInsert > 0) {
       for (var i = 0; i < numViewsToInsert; ++i) {
         this.pushObject(view.createChildView(itemViewClass));
@@ -49,34 +56,38 @@ StyleBindingsMixin, {
     this.viewportDidChange();
   }, 'numChildViews', 'itemViewClass'),
 
+  // TODO(Peter): Consider making this a computed... binding logic will go
+  // into the LazyItemMixin
   viewportDidChange: Ember.observer(function() {
-    var clength, content, numShownViews, startIndex, childViews;
-    childViews = this.get('childViews');
-    content = this.getWithDefault('content', []);
-    clength = content.get('length');
-    numShownViews = Math.min(childViews.get('length'), clength);
-    startIndex = this.get('startIndex');
+    var childViews = this.get('childViews');
+    var content = this.getWithDefault('content', []);
+    var clength = content.get('length');
+    var numShownViews = Math.min(childViews.get('length'), clength);
+    var startIndex = this.get('startIndex');
+    // this is a necessary check otherwise we are trying to access an object
+    // that doesn't exist
     if (startIndex + numShownViews >= clength) {
       startIndex = clength - numShownViews;
     }
     if (startIndex < 0) {
       startIndex = 0;
     }
-    return childViews.forEach(function(childView, i) {
-      var item, itemIndex;
+    // for all views that we are not using... just remove content
+    // this makes them invisble
+    childViews.forEach(function(childView, i) {
       if (i >= numShownViews) {
         childView.set('content', null);
         return;
       }
-      itemIndex = startIndex + i;
+      var itemIndex = startIndex + i;
       childView = childViews.objectAt(itemIndex % numShownViews);
-      item = content.objectAt(itemIndex);
+      var item = content.objectAt(itemIndex);
       if (item !== childView.get('content')) {
         childView.teardownContent();
         childView.set('itemIndex', itemIndex);
         childView.set('content', item);
-        return childView.prepareContent();
+        childView.prepareContent();
       }
-    }, this);
+    });
   }, 'content.length', 'startIndex')
 });
