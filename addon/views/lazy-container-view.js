@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import StyleBindingsMixin from 'ember-table/mixins/style-bindings';
 
+// FIXME(azirbel): Clean up JS
 export default Ember.ContainerView.extend(
 StyleBindingsMixin, {
   classNames: 'lazy-list-container',

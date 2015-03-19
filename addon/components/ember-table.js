@@ -8,7 +8,6 @@ export default Ember.Component.extend(
 StyleBindingsMixin, ResizeHandlerMixin, {
   classNames: ['ember-table-tables-container'],
   classNameBindings: ['enableContentSelection:ember-table-content-selectable'],
-  // layoutName: 'ember-table/components/ember-table',
 
   // ---------------------------------------------------------------------------
   // API - Inputs
