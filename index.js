@@ -14,18 +14,6 @@ module.exports = {
     // FIXME(azirbel): Need to import ember table CSS
   },
 
-  setupPreprocessorRegistry: function(type, registry) {
-    var tool = 'ember-cli-less';
-    console.log('setupPreprocessorRegistry using ' + tool);
-    // Also not working
-    // registry.add('css', 'broccoli-less', ['less']);
-    registry.add('css', {
-      name: tool,
-      ext: 'less',
-      toTree: function(tree) { return tree; }
-    });
-  },
-
   afterInstall: function() {
     this.addBowerPackageToProject('antiscroll');
     this.addBowerPackageToProject('jquery-mousewheel');
