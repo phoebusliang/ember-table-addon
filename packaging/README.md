@@ -1,4 +1,4 @@
-# Ember Widgets by Addepar Globals Build
+# Ember Table by Addepar Globals Build
 
 There are some legacy apps which are not in ember-cli or ES6 modules style, and
 expect some global objects to exist. The broccoli build in this file generates
@@ -6,9 +6,9 @@ those global objects.
 
 ## Installation
 
-Add a bower dependency on ember-widgets and include
+Add a bower dependency on ember-table and include
 ```
-bower_components/ember-widgets/packaging/dist/ember-widgets.js
+bower_components/ember-table/packaging/dist/ember-table.js
 ```
 in your app.
 

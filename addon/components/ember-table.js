@@ -139,6 +139,7 @@ StyleBindingsMixin, ResizeHandlerMixin, {
 
   // TODO(new-api): eliminate view alias
   // specify the view class to use for rendering the table rows
+  // FIXME(azirbel): use the class itself, avoid lookups
   tableRowView: 'table-row',
   tableRowViewClass: Ember.computed.alias('tableRowView'),
 

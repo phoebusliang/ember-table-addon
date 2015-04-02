@@ -1,45 +1,77 @@
-var Writer = require('broccoli-writer'),
-    fs = require('fs'),
-    path = require('path'),
-    Promise = require('RSVP').Promise,
-    walk = require('walk-sync');
+var Writer = require('broccoli-writer');
+var fs = require('fs');
+var path = require('path');
+var Promise = require('RSVP').Promise;
+var walk = require('walk-sync');
 
-
-var Globals = function ( inputTree, options ) {
-  if (!options) {
-    options = {};
-  }
-  if ( !( this instanceof Globals ) ) {
-    return new Globals( inputTree, options );
+var Globals = function (inputTree) {
+  options = {};
+  // FIXME(azirbel): What does this do?
+  if (!(this instanceof Globals)) {
+    return new Globals(inputTree, options);
   }
   this.inputTree = inputTree;
   this.outputPrefix = 'app';
   // Generates global objects for files in these folders
-  this.topLevels = options.topLevels || [
-    'views',
+  this.topLevels = [
     'components',
-    'utils',
+    'controllers',
     'mixins',
-    'controllers'
+    'models',
+    'views'
   ];
+
+  this.globalNameMapping = {
+    'app/components/ember-table': 'Ember.Table.EmberTableComponent',
+    'app/controllers/row-array': 'Ember.Table.RowArrayController',
+    'app/controllers/row': 'Ember.Table.Row',
+    'app/mixins/mouse-wheel-handler': 'Ember.MouseWheelHandlerMixin',
+    'app/mixins/register-table-component': 'Ember.Table.RegisterTableComponentMixin',
+    'app/mixins/resize-handler': 'Ember.AddeparMixins.ResizeHandlerMixin',
+    'app/mixins/scroll-handler': 'Ember.ScrollHandlerMixin',
+    'app/mixins/show-horizontal-scroll': 'Ember.Table.ShowHorizontalScrollMixin',
+    'app/mixins/style-bindings': 'Ember.AddeparMixins.StyleBindingsMixin',
+    'app/mixins/touch-move-handler': 'Ember.TouchMoveHandlerMixin',
+    'app/models/column-definition': 'Ember.Table.ColumnDefinition',
+    'app/views/body-table-container': 'Ember.Table.BodyTableContainer',
+    'app/views/column-sortable-indicator': 'Ember.Table.ColumnSortableIndicator',
+    'app/views/footer-table-container': 'Ember.Table.FooterTableContainer',
+    'app/views/header-block': 'Ember.Table.HeaderBlock',
+    'app/views/header-cell': 'Ember.Table.HeaderCell',
+    'app/views/header-row': 'Ember.Table.HeaderRow',
+    'app/views/header-table-container': 'Ember.Table.HeaderTableContainer',
+    'app/views/lazy-container-view': 'Ember.LazyContainerView',
+    'app/views/lazy-item-view': 'Ember.LazyItemView',
+    'app/views/lazy-table-block': 'Ember.Table.LazyTableBlock',
+    'app/views/multi-item-collection': 'Ember.MultiItemCollectionView',
+    'app/views/scroll-container': 'Ember.Table.ScrollContainer',
+    'app/views/scroll-panel': 'Ember.Table.ScrollPanel',
+    'app/views/table-block': 'Ember.Table.TableBlock',
+    'app/views/table-cell': 'Ember.Table.TableCell',
+    'app/views/table-container': 'Ember.Table.TableContainer',
+    'app/views/table-row': 'Ember.Table.TableRow'
+  };
 };
 
-Globals.prototype = Object.create( Writer.prototype );
+Globals.prototype = Object.create(Writer.prototype);
 Globals.prototype.constructor = Globals;
 
-Globals.prototype.write = function (readTree, destDir) {
-  var self = this;
+Globals.prototype.write = function(readTree, destDir) {
+  var _this = this;
 
-  self.capitalize = function(s) {
+  this.capitalize = function(s) {
     return s[0].toUpperCase() + s.substring(1);
   };
 
   return new Promise(function(resolve) {
-    readTree( self.inputTree ).then(function (srcDir) {
-      var files = walk(srcDir).filter(function(f){return /\.js$/.test(f);});
+    readTree(_this.inputTree).then(function(srcDir) {
+      // Get a listing of all js files from inputTree
+      var files = walk(srcDir).filter(function(f) {
+        return /\.js$/.test(f);
+      });
 
       /*
-       * The general idea here is, for all files in the self.topLevels dirs,
+       * The general idea here is, for all files in the _this.topLevels dirs,
        * generate an AMD module that, when required, will export a global
        * object with the default export of that file named based on the
        * filename.
@@ -50,65 +82,45 @@ Globals.prototype.write = function (readTree, destDir) {
       var modules = [];
       var dependencies = [];
       var objectNames = [];
-      console.log(self.capitalize);
       files.forEach(function(filename) {
         var parts = filename.split(path.sep);
-        if (self.topLevels.indexOf(parts[0]) !== -1) {
-          // the file name minus extension, or, the thing that should
-          // be listed as a module name
-          var module = [self.outputPrefix]
-            .concat(parts)
-            .join(path.sep)
-            .replace(path.extname(filename), '');
 
-          modules.push("'" + module + "'");
-          dependencies.push('__dependency' + (dependencies.length+1) + '__');
-
-           /*
-            * Component, View, etc
-            * Take the folder name, capitalize the first letter, and remove the
-            * pluralization
-            */
-          var objectType = self.capitalize(parts[0]).replace(/s$/, '');
-
-          /*
-           * Converts from foo-bar-baz to FooBarBaz
-           *   Assumes file name is dasherized and lower case
-           *   Take the file name, strip the extension, tokenize by the hyphen,
-           *   for each token capitalize the first character and join.
-           */
-          var objectName = parts[1]
-            .replace(path.extname(filename), '')
-            .split('-')
-            .map(self.capitalize)
-            .join('')
-            .replace('-', '');
-
-          /*
-           * Right now, some file names are like 'select-component', and we
-           * don't want to output SelectComponentComponent, so we strip one
-           * 'Component'.
-           *
-           * The reason they're like this is so that they can have
-           * dashes in the file name as per Ember requirements.
-           */
-          var typeRegex = new RegExp(objectType+"$");
-          if (typeRegex.test(objectName)) {
-            objectNames.push(objectName);
-          } else {
-            objectNames.push(objectName + objectType);
-          }
+        // Ignore any files not in topLevelModules
+        if (_this.topLevels.indexOf(parts[0]) === -1) {
+          return;
         }
+
+        // the file name minus extension, or, the thing that should
+        // be listed as a module name
+        var module = [_this.outputPrefix]
+          .concat(parts)
+          .join(path.sep)
+          .replace(path.extname(filename), ''); // TODO: Could improve
+
+        modules.push("'" + module + "'");
+        dependencies.push('__dependency' + (dependencies.length+1) + '__');
+
+        var globalName = _this.globalNameMapping[module];
+        if (!globalName) {
+          console.log('ERROR: No global name found for ' + module + '.' +
+              ' Please add one to globals > globalNameMapping.');
+          throw('');  // TODO(azirbel): How to do this properly?
+        }
+
+        objectNames.push(globalName);
       });
-      console.log(modules, dependencies, objectNames);
       // build the actual amd module
-      var output = ["define('globals', [" + modules.join(",\n") + ", \"exports\"], function(" +
-        dependencies.join(",\n") + ", __exports__) {"];
-      objectNames.forEach(function(objName, i){
-        output.push("window.Ember.Widgets."+objName+" = "+dependencies[i]+"['default'];");
+      var output = ["define('globals', [" + modules.join(",\n") +
+          ", \"exports\"], function(" + dependencies.join(",\n") +
+          ", __exports__) {"];
+      objectNames.forEach(function(objectName, i) {
+        output.push("window." + objectName + " = " + dependencies[i] +
+            "['default'];");
       });
-      output.push("__exports__['default'] = window.Ember.Widgets;");
+      // FIXME(azirbel): Not sure if this will work
+      output.push("__exports__['default'] = window.Ember.Table;");
       output.push("});");
+      console.log(destDir);
       fs.writeFileSync(path.join(destDir, 'globals-output.js'), output.join("\n"));
       resolve();
     });

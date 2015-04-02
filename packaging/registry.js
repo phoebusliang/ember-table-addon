@@ -1,14 +1,13 @@
 /* jshint node: true */
 // https://github.com/ef4/liquid-fire
 
-var Writer = require('broccoli-writer'),
-    fs = require('fs'),
-    path = require('path'),
-    Promise = require('RSVP').Promise,
-    walk = require('walk-sync');
+var Writer = require('broccoli-writer');
+var fs = require('fs');
+var path = require('path');
+var Promise = require('RSVP').Promise;
+var walk = require('walk-sync');
 
-
-var AddonRegistry = function ( inputTree, options ) {
+var AddonRegistry = function(inputTree, options) {
   if (!options) {
     options = {};
   }
@@ -41,7 +40,7 @@ AddonRegistry.prototype.write = function (readTree, destDir) {
   return new Promise(function(resolve) {
     readTree( self.inputTree ).then(function (srcDir) {
       var files = walk(srcDir).filter(function(f){return /\.js$/.test(f);});
-      var output = ["define('ember-widgets-shim', [\"exports\"], function(__exports__) {__exports__.initialize = function(container){"];
+      var output = ["define('ember-table-shim', [\"exports\"], function(__exports__) {__exports__.initialize = function(container){"];
 
       files.forEach(function(filename) {
         var parts = filename.split(path.sep);
