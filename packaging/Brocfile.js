@@ -17,22 +17,22 @@ var instrument = require('broccoli-debug').instrument;
 
 var addonTree = pickFiles('../addon', {
   srcDir: '/',
-  destDir: 'app'  // FIXME(azirbel): Why app and not / ?
+  destDir: 'addon'  // FIXME(azirbel): Why addon and not / ?
 });
 var viewsTree = pickFiles('../app/views', {
   srcDir: '/',
-  destDir: 'app/views'
+  destDir: 'addon/views'
 });
 
 // compile templates
-var templateTree = templateCompiler('../app/templates', { module: true });
-templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'app/templates'});
+var templateTree = templateCompiler('../addon/templates', { module: true });
+templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'addon/templates'});
 
-var templateTree = instrument.print(templateTree);
+templateTree = instrument.print(templateTree);
 
 var precompiled = mergeTrees([templateTree, viewsTree, addonTree], {overwrite: true});
 
-var precompiled = instrument.print(precompiled);
+precompiled = instrument.print(precompiled);
 
 // Register components, controllers, etc. on the application container.
 // Output goes to registry-output.js
@@ -41,9 +41,9 @@ var precompiled = instrument.print(precompiled);
 
 // Generate global exports for components, mixins, etc. Output goes
 // into globals-output.js
-var globalExports = globals(pickFiles(precompiled, {srcDir: '/app', destDir: '/'}));
+var globalExports = globals(pickFiles(precompiled, {srcDir: '/addon', destDir: '/'}));
 
-globalExports = instrument.print(globalExports);
+// globalExports = instrument.print(globalExports);
 
 // Require.js module loader
 var loader = pickFiles('../bower_components', {srcDir: '/loader.js', destDir: '/'});
@@ -51,39 +51,37 @@ var loader = pickFiles('../bower_components', {srcDir: '/loader.js', destDir: '/
 // glue.js contains the code for the application initializer that requires the
 // output from registry-output.js and the global statements that require
 // globals.js
-var glue = new Funnel('.', {
-  include: [/^glue\.js$/]
-});
+// var glue = new Funnel('.', {
+//   include: [/^glue\.js$/]
+// });
 
 // Order matters here. glue needs to come after globalExports and registrations
-var jsTree = mergeTrees([
-  glue,
-  mergeTrees([precompiled, globalExports, loader])
-  // mergeTrees([precompiled, registrations, globalExports, loader])
-]);
-
-console.log('here');
+// var jsTree = mergeTrees([
+//   glue,
+//   mergeTrees([precompiled, registrations, globalExports, loader])
+// ]);
+var jsTree = mergeTrees([precompiled, globalExports, loader]);
 
 jsTree = instrument.print(jsTree);
 
-module.exports = jsTree;
+// module.exports = jsTree;
 
-// // Transpile modules
-// var compiled = compileES6(jsTree, {
-//   wrapInEval: false,
-//   loaderFile: 'loader.js',
-//   inputFiles: ['app/**/*.js'],
-//   ignoredModules: ['ember'],
-//   outputFile: '/js/ember-table.js',
-//   legacyFilesToAppend: ['globals-output.js', 'glue.js']
-//   // legacyFilesToAppend: ['registry-output.js', 'globals-output.js', 'glue.js']
-// });
-// compiled = wrap(compiled);
+// Transpile modules
+var compiled = compileES6(jsTree, {
+  wrapInEval: false,
+  loaderFile: 'loader.js',
+  inputFiles: ['addon/**/*.js'],
+  ignoredModules: ['ember'],
+  outputFile: '/js/ember-table.js',
+  legacyFilesToAppend: ['globals-output.js']
+  // legacyFilesToAppend: ['registry-output.js', 'globals-output.js', 'glue.js']
+});
+compiled = wrap(compiled);
 
-// // Compile LESS
-// var lessTree = pickFiles('../addon/styles', {srcDir: '/', destDir: '/'});
-// var lessMain = 'addon.less';
-// var lessOutput = 'css/ember-table.css';
-// lessTree = less(lessTree, lessMain, lessOutput);
+// Compile LESS
+var lessTree = pickFiles('../addon/styles', { srcDir: '/', destDir: '/' });
+var lessMain = 'addon.less';
+var lessOutput = 'css/ember-table.css';
+lessTree = less(lessTree, lessMain, lessOutput);
 
-// module.exports = mergeTrees([es3Safe(compiled), lessTree]);
+module.exports = mergeTrees([es3Safe(compiled), lessTree]);

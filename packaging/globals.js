@@ -120,7 +120,6 @@ Globals.prototype.write = function(readTree, destDir) {
       // FIXME(azirbel): Not sure if this will work
       output.push("__exports__['default'] = window.Ember.Table;");
       output.push("});");
-      console.log(destDir);
       fs.writeFileSync(path.join(destDir, 'globals-output.js'), output.join("\n"));
       resolve();
     });
