@@ -6,7 +6,6 @@ var walk = require('walk-sync');
 
 var Globals = function (inputTree) {
   options = {};
-  // FIXME(azirbel): What does this do?
   if (!(this instanceof Globals)) {
     return new Globals(inputTree, options);
   }
@@ -70,15 +69,6 @@ Globals.prototype.write = function(readTree, destDir) {
         return /\.js$/.test(f);
       });
 
-      /*
-       * The general idea here is, for all files in the _this.topLevels dirs,
-       * generate an AMD module that, when required, will export a global
-       * object with the default export of that file named based on the
-       * filename.
-       *
-       * TODO: see if some of the string manipulation here can be handled by
-       * Ember? Assuming we can import it at this point. I'm not sure we can.
-       */
       var modules = [];
       var dependencies = [];
       var objectNames = [];

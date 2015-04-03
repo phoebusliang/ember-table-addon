@@ -4,7 +4,9 @@ var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 // FIXME(azirbel): This is deprecated
 var pickFiles = require('broccoli-static-compiler');
+// FIXME(azirbel): Deprecated, remove
 var compileES6 = require('broccoli-es6-concatenator');
+var ES6Modules = require('broccoli-es6modules');
 var es3Safe = require('broccoli-es3-safe-recast');
 var templateCompiler = require('broccoli-ember-hbs-template-compiler');
 var less = require('broccoli-less-single');
