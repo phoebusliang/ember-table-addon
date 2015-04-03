@@ -17,22 +17,24 @@ var instrument = require('broccoli-debug').instrument;
 
 var addonTree = pickFiles('../addon', {
   srcDir: '/',
-  destDir: 'addon'  // FIXME(azirbel): Why addon and not / ?
+  destDir: 'ember-table'  // FIXME(azirbel): Why addon and not / ?
 });
 var viewsTree = pickFiles('../app/views', {
   srcDir: '/',
-  destDir: 'addon/views'
+  destDir: 'ember-table/views'
 });
 
 // compile templates
-var templateTree = templateCompiler('../addon/templates', { module: true });
-templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'addon/templates'});
+var templateTree = templateCompiler('../app/templates', { module: true });
+templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'ember-table/templates'});
 
 templateTree = instrument.print(templateTree);
 
 var precompiled = mergeTrees([templateTree, viewsTree, addonTree], {overwrite: true});
 
 precompiled = instrument.print(precompiled);
+
+module.exports = precompiled;
 
 // Register components, controllers, etc. on the application container.
 // Output goes to registry-output.js
@@ -41,7 +43,7 @@ precompiled = instrument.print(precompiled);
 
 // Generate global exports for components, mixins, etc. Output goes
 // into globals-output.js
-var globalExports = globals(pickFiles(precompiled, {srcDir: '/addon', destDir: '/'}));
+var globalExports = globals(pickFiles(precompiled, {srcDir: '/ember-table', destDir: '/'}));
 
 // globalExports = instrument.print(globalExports);
 
@@ -60,23 +62,24 @@ var loader = pickFiles('../bower_components', {srcDir: '/loader.js', destDir: '/
 //   glue,
 //   mergeTrees([precompiled, registrations, globalExports, loader])
 // ]);
+// var jsTree = mergeTrees([precompiled, globalExports, loader]);
 var jsTree = mergeTrees([precompiled, globalExports, loader]);
 
 jsTree = instrument.print(jsTree);
-
-// module.exports = jsTree;
 
 // Transpile modules
 var compiled = compileES6(jsTree, {
   wrapInEval: false,
   loaderFile: 'loader.js',
-  inputFiles: ['addon/**/*.js'],
+  inputFiles: ['ember-table/**/*.js'],
   ignoredModules: ['ember'],
   outputFile: '/js/ember-table.js',
   legacyFilesToAppend: ['globals-output.js']
   // legacyFilesToAppend: ['registry-output.js', 'globals-output.js', 'glue.js']
 });
+
 compiled = wrap(compiled);
+compiled = instrument.print(compiled);
 
 // Compile LESS
 var lessTree = pickFiles('../addon/styles', { srcDir: '/', destDir: '/' });
