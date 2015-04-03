@@ -4,7 +4,7 @@ var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 // FIXME(azirbel): This is deprecated
 var pickFiles = require('broccoli-static-compiler');
-// FIXME(azirbel): Deprecated, remove
+// FIXME(azirbel): Deprecated, remove and use es6modules
 var compileES6 = require('broccoli-es6-concatenator');
 var ES6Modules = require('broccoli-es6modules');
 var es3Safe = require('broccoli-es3-safe-recast');
@@ -36,8 +36,6 @@ var precompiled = mergeTrees([templateTree, viewsTree, addonTree], {overwrite: t
 
 precompiled = instrument.print(precompiled);
 
-module.exports = precompiled;
-
 // Register components, controllers, etc. on the application container.
 // Output goes to registry-output.js
 // FIXME(azirbel): Do we need this?
@@ -62,7 +60,7 @@ var loader = pickFiles('../bower_components', {srcDir: '/loader.js', destDir: '/
 // Order matters here. glue needs to come after globalExports and registrations
 // var jsTree = mergeTrees([
 //   glue,
-//   mergeTrees([precompiled, registrations, globalExports, loader])
+//   mergeTrees([precompiled, globalExports, loader])
 // ]);
 // var jsTree = mergeTrees([precompiled, globalExports, loader]);
 var jsTree = mergeTrees([precompiled, globalExports, loader]);

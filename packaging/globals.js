@@ -10,7 +10,7 @@ var Globals = function (inputTree) {
     return new Globals(inputTree, options);
   }
   this.inputTree = inputTree;
-  this.outputPrefix = 'app';
+  this.outputPrefix = 'ember-table';
   // Generates global objects for files in these folders
   this.topLevels = [
     'components',
@@ -21,40 +21,41 @@ var Globals = function (inputTree) {
   ];
 
   this.globalNameMapping = {
-    'app/components/ember-table': 'Ember.Table.EmberTableComponent',
-    'app/controllers/row-array': 'Ember.Table.RowArrayController',
-    'app/controllers/row': 'Ember.Table.Row',
-    'app/mixins/mouse-wheel-handler': 'Ember.MouseWheelHandlerMixin',
-    'app/mixins/register-table-component': 'Ember.Table.RegisterTableComponentMixin',
-    'app/mixins/resize-handler': 'Ember.AddeparMixins.ResizeHandlerMixin',
-    'app/mixins/scroll-handler': 'Ember.ScrollHandlerMixin',
-    'app/mixins/show-horizontal-scroll': 'Ember.Table.ShowHorizontalScrollMixin',
-    'app/mixins/style-bindings': 'Ember.AddeparMixins.StyleBindingsMixin',
-    'app/mixins/touch-move-handler': 'Ember.TouchMoveHandlerMixin',
-    'app/models/column-definition': 'Ember.Table.ColumnDefinition',
-    'app/views/body-table-container': 'Ember.Table.BodyTableContainer',
-    'app/views/column-sortable-indicator': 'Ember.Table.ColumnSortableIndicator',
-    'app/views/footer-table-container': 'Ember.Table.FooterTableContainer',
-    'app/views/header-block': 'Ember.Table.HeaderBlock',
-    'app/views/header-cell': 'Ember.Table.HeaderCell',
-    'app/views/header-row': 'Ember.Table.HeaderRow',
-    'app/views/header-table-container': 'Ember.Table.HeaderTableContainer',
-    'app/views/lazy-container-view': 'Ember.LazyContainerView',
-    'app/views/lazy-item-view': 'Ember.LazyItemView',
-    'app/views/lazy-table-block': 'Ember.Table.LazyTableBlock',
-    'app/views/multi-item-collection': 'Ember.MultiItemCollectionView',
-    'app/views/scroll-container': 'Ember.Table.ScrollContainer',
-    'app/views/scroll-panel': 'Ember.Table.ScrollPanel',
-    'app/views/table-block': 'Ember.Table.TableBlock',
-    'app/views/table-cell': 'Ember.Table.TableCell',
-    'app/views/table-container': 'Ember.Table.TableContainer',
-    'app/views/table-row': 'Ember.Table.TableRow'
+    'ember-table/components/ember-table': 'Ember.Table.EmberTableComponent',
+    'ember-table/controllers/row-array': 'Ember.Table.RowArrayController',
+    'ember-table/controllers/row': 'Ember.Table.Row',
+    'ember-table/mixins/mouse-wheel-handler': 'Ember.MouseWheelHandlerMixin',
+    'ember-table/mixins/register-table-component': 'Ember.Table.RegisterTableComponentMixin',
+    'ember-table/mixins/resize-handler': 'Ember.AddeparMixins.ResizeHandlerMixin',
+    'ember-table/mixins/scroll-handler': 'Ember.ScrollHandlerMixin',
+    'ember-table/mixins/show-horizontal-scroll': 'Ember.Table.ShowHorizontalScrollMixin',
+    'ember-table/mixins/style-bindings': 'Ember.AddeparMixins.StyleBindingsMixin',
+    'ember-table/mixins/touch-move-handler': 'Ember.TouchMoveHandlerMixin',
+    'ember-table/models/column-definition': 'Ember.Table.ColumnDefinition',
+    'ember-table/views/body-table-container': 'Ember.Table.BodyTableContainer',
+    'ember-table/views/column-sortable-indicator': 'Ember.Table.ColumnSortableIndicator',
+    'ember-table/views/footer-table-container': 'Ember.Table.FooterTableContainer',
+    'ember-table/views/header-block': 'Ember.Table.HeaderBlock',
+    'ember-table/views/header-cell': 'Ember.Table.HeaderCell',
+    'ember-table/views/header-row': 'Ember.Table.HeaderRow',
+    'ember-table/views/header-table-container': 'Ember.Table.HeaderTableContainer',
+    'ember-table/views/lazy-container-view': 'Ember.LazyContainerView',
+    'ember-table/views/lazy-item-view': 'Ember.LazyItemView',
+    'ember-table/views/lazy-table-block': 'Ember.Table.LazyTableBlock',
+    'ember-table/views/multi-item-collection': 'Ember.MultiItemCollectionView',
+    'ember-table/views/scroll-container': 'Ember.Table.ScrollContainer',
+    'ember-table/views/scroll-panel': 'Ember.Table.ScrollPanel',
+    'ember-table/views/table-block': 'Ember.Table.TableBlock',
+    'ember-table/views/table-cell': 'Ember.Table.TableCell',
+    'ember-table/views/table-container': 'Ember.Table.TableContainer',
+    'ember-table/views/table-row': 'Ember.Table.TableRow'
   };
 };
 
 Globals.prototype = Object.create(Writer.prototype);
 Globals.prototype.constructor = Globals;
 
+// FIXME(azirbel): Use trees only to check consistency with global mappings
 Globals.prototype.write = function(readTree, destDir) {
   var _this = this;
 
@@ -64,52 +65,57 @@ Globals.prototype.write = function(readTree, destDir) {
 
   return new Promise(function(resolve) {
     readTree(_this.inputTree).then(function(srcDir) {
-      // Get a listing of all js files from inputTree
-      var files = walk(srcDir).filter(function(f) {
-        return /\.js$/.test(f);
-      });
+      // // Get a listing of all js files from inputTree
+      // var files = walk(srcDir).filter(function(f) {
+      //   return /\.js$/.test(f);
+      // });
 
-      var modules = [];
-      var dependencies = [];
-      var objectNames = [];
-      files.forEach(function(filename) {
-        var parts = filename.split(path.sep);
+      // var modules = [];
+      // var dependencies = [];
+      // var objectNames = [];
+      // files.forEach(function(filename) {
+      //   var parts = filename.split(path.sep);
 
-        // Ignore any files not in topLevelModules
-        if (_this.topLevels.indexOf(parts[0]) === -1) {
-          return;
+      //   // Ignore any files not in topLevelModules
+      //   if (_this.topLevels.indexOf(parts[0]) === -1) {
+      //     return;
+      //   }
+
+      //   // the file name minus extension, or, the thing that should
+      //   // be listed as a module name
+      //   var module = [_this.outputPrefix]
+      //     .concat(parts)
+      //     .join(path.sep)
+      //     .replace(path.extname(filename), ''); // TODO: Could improve
+
+      //   modules.push("'" + module + "'");
+      //   dependencies.push('__dependency' + (dependencies.length+1) + '__');
+
+      //   var globalName = _this.globalNameMapping[module];
+      //   if (!globalName) {
+      //     console.log('ERROR: No global name found for ' + module + '.' +
+      //         ' Please add one to globals > globalNameMapping.');
+      //     throw('');  // TODO(azirbel): How to do this properly?
+      //   }
+
+      //   objectNames.push(globalName);
+      // });
+      var output = [
+        "define('ember', ['exports'], function(__exports__) {",
+        "  __exports__['default'] = window.Ember;",
+        "});",
+        "",
+        "window.Ember.Table = {};",
+        "window.Ember.AddeparMixins = {};"];
+      for (key in _this.globalNameMapping) {
+        if (!_this.globalNameMapping.hasOwnProperty(key)) {
+          continue;
         }
-
-        // the file name minus extension, or, the thing that should
-        // be listed as a module name
-        var module = [_this.outputPrefix]
-          .concat(parts)
-          .join(path.sep)
-          .replace(path.extname(filename), ''); // TODO: Could improve
-
-        modules.push("'" + module + "'");
-        dependencies.push('__dependency' + (dependencies.length+1) + '__');
-
-        var globalName = _this.globalNameMapping[module];
-        if (!globalName) {
-          console.log('ERROR: No global name found for ' + module + '.' +
-              ' Please add one to globals > globalNameMapping.');
-          throw('');  // TODO(azirbel): How to do this properly?
-        }
-
-        objectNames.push(globalName);
-      });
-      // build the actual amd module
-      var output = ["define('globals', [" + modules.join(",\n") +
-          ", \"exports\"], function(" + dependencies.join(",\n") +
-          ", __exports__) {"];
-      objectNames.forEach(function(objectName, i) {
-        output.push("window." + objectName + " = " + dependencies[i] +
-            "['default'];");
-      });
-      // FIXME(azirbel): Not sure if this will work
-      output.push("__exports__['default'] = window.Ember.Table;");
-      output.push("});");
+        output.push("window." + _this.globalNameMapping[key] +
+                    " = require('" + key + "')['default'];");
+      }
+      output.push("Ember.Handlebars.helper('table-component', " +
+                  "Ember.Table.EmberTableComponent);");
       fs.writeFileSync(path.join(destDir, 'globals-output.js'), output.join("\n"));
       resolve();
     });

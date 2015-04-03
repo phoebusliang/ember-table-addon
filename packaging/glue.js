@@ -9,13 +9,13 @@ define('ember', ["exports"], function(__exports__) {
 window.Ember.Table = {};
 require('globals');
 
-Ember.onLoad('Ember.Application', function(Application) {
-  Application.initializer({
-    name: 'ember-table-standalone',
-    initialize: function(container) {
-      // Once the application is loaded, add an initializer to add stuff to
-      // the container using the output from registry.js
-      require('ember-table-shim').initialize(container);
-    }
-  });
-});
+// Ember.onLoad('Ember.Application', function(Application) {
+//   Application.initializer({
+//     name: 'ember-table-standalone',
+//     initialize: function(container) {
+//       // Once the application is loaded, add an initializer to add stuff to
+//       // the container using the output from registry.js
+//       require('ember-table-shim').initialize(container);
+//     }
+//   });
+// });
