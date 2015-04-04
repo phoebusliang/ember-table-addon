@@ -20,6 +20,18 @@ var Globals = function (inputTree) {
     'views'
   ];
 
+  this.templateNameMapping = {
+    'ember-table/templates/body-table-container': 'body-container',
+    'ember-table/templates/components/ember-table': 'components/ember-table',
+    'ember-table/templates/footer-table-container': 'footer-container',
+    'ember-table/templates/header-cell': 'header-cell',
+    'ember-table/templates/header-row': 'header-row',
+    'ember-table/templates/header-table-container': 'header-container',
+    'ember-table/templates/table-cell': 'table-cell',
+    'ember-table/templates/table-row': 'table-row',
+    'ember-table/templates/scroll-container': 'scroll-container'
+  };
+
   this.globalNameMapping = {
     'ember-table/components/ember-table': 'Ember.Table.EmberTableComponent',
     'ember-table/controllers/row-array': 'Ember.Table.RowArrayController',
@@ -107,6 +119,14 @@ Globals.prototype.write = function(readTree, destDir) {
         "",
         "window.Ember.Table = {};",
         "window.Ember.AddeparMixins = {};"];
+      for (key in _this.templateNameMapping) {
+        if (!_this.templateNameMapping.hasOwnProperty(key)) {
+          continue;
+        }
+        output.push("window.Ember.TEMPLATES['" +
+                    _this.templateNameMapping[key] + "']" +
+                    " = require('" + key + "')['default'];");
+      }
       for (key in _this.globalNameMapping) {
         if (!_this.globalNameMapping.hasOwnProperty(key)) {
           continue;

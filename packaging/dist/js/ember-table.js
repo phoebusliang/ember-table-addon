@@ -2161,6 +2161,15 @@ var define, requireModule, require, requirejs;
 
 window.Ember.Table = {};
 window.Ember.AddeparMixins = {};
+window.Ember.TEMPLATES['body-container'] = require('ember-table/templates/body-table-container')['default'];
+window.Ember.TEMPLATES['components/ember-table'] = require('ember-table/templates/components/ember-table')['default'];
+window.Ember.TEMPLATES['footer-container'] = require('ember-table/templates/footer-table-container')['default'];
+window.Ember.TEMPLATES['header-cell'] = require('ember-table/templates/header-cell')['default'];
+window.Ember.TEMPLATES['header-row'] = require('ember-table/templates/header-row')['default'];
+window.Ember.TEMPLATES['header-container'] = require('ember-table/templates/header-table-container')['default'];
+window.Ember.TEMPLATES['table-cell'] = require('ember-table/templates/table-cell')['default'];
+window.Ember.TEMPLATES['table-row'] = require('ember-table/templates/table-row')['default'];
+window.Ember.TEMPLATES['scroll-container'] = require('ember-table/templates/scroll-container')['default'];
 window.Ember.Table.EmberTableComponent = require('ember-table/components/ember-table')['default'];
 window.Ember.Table.RowArrayController = require('ember-table/controllers/row-array')['default'];
 window.Ember.Table.Row = require('ember-table/controllers/row')['default'];
