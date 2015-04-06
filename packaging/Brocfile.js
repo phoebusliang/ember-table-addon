@@ -14,9 +14,6 @@ var registry = require('./registry');
 var wrap = require('./wrap');
 var globals = require('./globals');
 
-// FIXME(azirbel): Remove
-var instrument = require('broccoli-debug').instrument;
-
 var addonTree = pickFiles('addon', {
   srcDir: '/',
   destDir: 'ember-table'  // FIXME(azirbel): Why addon and not / ?
@@ -30,11 +27,7 @@ var viewsTree = pickFiles('app/views', {
 var templateTree = templateCompiler('app/templates', { module: true });
 templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'ember-table/templates'});
 
-templateTree = instrument.print(templateTree);
-
 var precompiled = mergeTrees([templateTree, viewsTree, addonTree], {overwrite: true});
-
-precompiled = instrument.print(precompiled);
 
 // Register components, controllers, etc. on the application container.
 // Output goes to registry-output.js
@@ -44,8 +37,6 @@ precompiled = instrument.print(precompiled);
 // Generate global exports for components, mixins, etc. Output goes
 // into globals-output.js
 var globalExports = globals(pickFiles(precompiled, {srcDir: '/ember-table', destDir: '/'}));
-
-// globalExports = instrument.print(globalExports);
 
 // Require.js module loader
 var loader = pickFiles('bower_components', {srcDir: '/loader.js', destDir: '/'});
@@ -65,8 +56,6 @@ var loader = pickFiles('bower_components', {srcDir: '/loader.js', destDir: '/'})
 // var jsTree = mergeTrees([precompiled, globalExports, loader]);
 var jsTree = mergeTrees([precompiled, globalExports, loader]);
 
-jsTree = instrument.print(jsTree);
-
 // Transpile modules
 var compiled = compileES6(jsTree, {
   wrapInEval: false,
@@ -79,7 +68,6 @@ var compiled = compileES6(jsTree, {
 });
 
 compiled = wrap(compiled);
-compiled = instrument.print(compiled);
 
 // Compile LESS
 var lessTree = pickFiles('addon/styles', { srcDir: '/', destDir: '/' });
