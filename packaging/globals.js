@@ -122,6 +122,7 @@ Globals.prototype.write = function(readTree, destDir) {
         "",
         "window.Ember.Table = Ember.Namespace.create();",
         "window.Ember.AddeparMixins = {};"];
+      var toRegister = [];
       // Define templates on Ember.TEMPLATES
       for (key in _this.templateNameMapping) {
         if (!_this.templateNameMapping.hasOwnProperty(key)) {
@@ -140,7 +141,40 @@ Globals.prototype.write = function(readTree, destDir) {
         output.push("window." + _this.globalNameMapping[key] +
                     " = require('" + key + "')['default'];");
         // Register on the container
+        var type = key.split('/')[1].replace(/s$/, '')
+        if (type === 'view' || type === 'component') {
+          toRegister.push({
+            type: type,
+            moduleName: key,
+            containerName: key.split('/')[2]
+          });
+        }
       }
+
+      [
+        "Ember.onLoad('Ember.Application', function(Application) {",
+          "Application.initializer({",
+            "name: 'ember-table',",
+            "initialize: function(container) {"
+      ].forEach(function(line) {
+        output.push(line);
+      });
+
+      toRegister.forEach(function(item) {
+        output.push("container.register('" +
+            item.type + ':' + item.containerName +
+            "', require('" + item.moduleName +
+            "')['default']);" );
+      });
+
+      [
+            "}",
+          "});",
+        "});"
+      ].forEach(function(line) {
+        output.push(line);
+      });
+
       output.push("Ember.Handlebars.helper('table-component', " +
                   "Ember.Table.EmberTableComponent);");
       fs.writeFileSync(path.join(destDir, 'globals-output.js'), output.join("\n"));

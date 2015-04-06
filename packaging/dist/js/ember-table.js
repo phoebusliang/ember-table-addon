@@ -2199,4 +2199,29 @@ window.Ember.Table.TableBlock = require('ember-table/views/table-block')['defaul
 window.Ember.Table.TableCell = require('ember-table/views/table-cell')['default'];
 window.Ember.Table.TableContainer = require('ember-table/views/table-container')['default'];
 window.Ember.Table.TableRow = require('ember-table/views/table-row')['default'];
+Ember.onLoad('Ember.Application', function(Application) {
+Application.initializer({
+name: 'ember-table',
+initialize: function(container) {
+container.register('component:ember-table', require('ember-table/components/ember-table')['default']);
+container.register('view:body-table-container', require('ember-table/views/body-table-container')['default']);
+container.register('view:column-sortable-indicator', require('ember-table/views/column-sortable-indicator')['default']);
+container.register('view:footer-table-container', require('ember-table/views/footer-table-container')['default']);
+container.register('view:header-block', require('ember-table/views/header-block')['default']);
+container.register('view:header-cell', require('ember-table/views/header-cell')['default']);
+container.register('view:header-row', require('ember-table/views/header-row')['default']);
+container.register('view:header-table-container', require('ember-table/views/header-table-container')['default']);
+container.register('view:lazy-container-view', require('ember-table/views/lazy-container-view')['default']);
+container.register('view:lazy-item-view', require('ember-table/views/lazy-item-view')['default']);
+container.register('view:lazy-table-block', require('ember-table/views/lazy-table-block')['default']);
+container.register('view:multi-item-collection', require('ember-table/views/multi-item-collection')['default']);
+container.register('view:scroll-container', require('ember-table/views/scroll-container')['default']);
+container.register('view:scroll-panel', require('ember-table/views/scroll-panel')['default']);
+container.register('view:table-block', require('ember-table/views/table-block')['default']);
+container.register('view:table-cell', require('ember-table/views/table-cell')['default']);
+container.register('view:table-container', require('ember-table/views/table-container')['default']);
+container.register('view:table-row', require('ember-table/views/table-row')['default']);
+}
+});
+});
 Ember.Handlebars.helper('table-component', Ember.Table.EmberTableComponent);})();
