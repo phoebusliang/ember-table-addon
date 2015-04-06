@@ -3,10 +3,18 @@ module.exports = function (grunt) {
 
   var path = require('path');
 
+  grunt.loadNpmTasks('grunt-broccoli');
   grunt.loadNpmTasks('grunt-release-it');
 
   // FIXME(azirbel): Needs usebanner
   // FIXME(azirbel): Needs versioning support for new releases
+
+  broccoli: {
+    dist: {
+      dest: 'dist',
+      config: 'packaging/Brocfile.js'
+    }
+  },
 
   // Project configuration.
   grunt.initConfig({
