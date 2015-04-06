@@ -17,17 +17,17 @@ var globals = require('./globals');
 // FIXME(azirbel): Remove
 var instrument = require('broccoli-debug').instrument;
 
-var addonTree = pickFiles('../addon', {
+var addonTree = pickFiles('addon', {
   srcDir: '/',
   destDir: 'ember-table'  // FIXME(azirbel): Why addon and not / ?
 });
-var viewsTree = pickFiles('../app/views', {
+var viewsTree = pickFiles('app/views', {
   srcDir: '/',
   destDir: 'ember-table/views'
 });
 
 // compile templates
-var templateTree = templateCompiler('../app/templates', { module: true });
+var templateTree = templateCompiler('app/templates', { module: true });
 templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'ember-table/templates'});
 
 templateTree = instrument.print(templateTree);
@@ -48,7 +48,7 @@ var globalExports = globals(pickFiles(precompiled, {srcDir: '/ember-table', dest
 // globalExports = instrument.print(globalExports);
 
 // Require.js module loader
-var loader = pickFiles('../bower_components', {srcDir: '/loader.js', destDir: '/'});
+var loader = pickFiles('bower_components', {srcDir: '/loader.js', destDir: '/'});
 
 // glue.js contains the code for the application initializer that requires the
 // output from registry-output.js and the global statements that require
@@ -73,7 +73,7 @@ var compiled = compileES6(jsTree, {
   loaderFile: 'loader.js',
   inputFiles: ['ember-table/**/*.js'],
   ignoredModules: ['ember'],
-  outputFile: '/js/ember-table.js',
+  outputFile: '/ember-table.js',
   legacyFilesToAppend: ['globals-output.js']
   // legacyFilesToAppend: ['registry-output.js', 'globals-output.js', 'glue.js']
 });
@@ -82,9 +82,9 @@ compiled = wrap(compiled);
 compiled = instrument.print(compiled);
 
 // Compile LESS
-var lessTree = pickFiles('../addon/styles', { srcDir: '/', destDir: '/' });
+var lessTree = pickFiles('addon/styles', { srcDir: '/', destDir: '/' });
 var lessMain = 'addon.less';
-var lessOutput = 'css/ember-table.css';
+var lessOutput = 'ember-table.css';
 lessTree = less(lessTree, lessMain, lessOutput);
 
 module.exports = mergeTrees([es3Safe(compiled), lessTree]);
