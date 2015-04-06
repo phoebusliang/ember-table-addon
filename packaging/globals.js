@@ -114,13 +114,15 @@ Globals.prototype.write = function(readTree, destDir) {
 
       //   objectNames.push(globalName);
       // });
+      // FIXME(azirbel): Log ember version and register with Ember.libraries?
       var output = [
         "define('ember', ['exports'], function(__exports__) {",
         "  __exports__['default'] = window.Ember;",
         "});",
         "",
-        "window.Ember.Table = {};",
+        "window.Ember.Table = Ember.Namespace.create();",
         "window.Ember.AddeparMixins = {};"];
+      // Define templates on Ember.TEMPLATES
       for (key in _this.templateNameMapping) {
         if (!_this.templateNameMapping.hasOwnProperty(key)) {
           continue;
@@ -129,12 +131,15 @@ Globals.prototype.write = function(readTree, destDir) {
                     _this.templateNameMapping[key] + "']" +
                     " = require('" + key + "')['default'];");
       }
+      // Define globals and register on the container
       for (key in _this.globalNameMapping) {
         if (!_this.globalNameMapping.hasOwnProperty(key)) {
           continue;
         }
+        // Define the global
         output.push("window." + _this.globalNameMapping[key] +
                     " = require('" + key + "')['default'];");
+        // Register on the container
       }
       output.push("Ember.Handlebars.helper('table-component', " +
                   "Ember.Table.EmberTableComponent);");

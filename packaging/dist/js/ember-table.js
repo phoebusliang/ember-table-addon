@@ -122,6 +122,7 @@ var define, requireModule, require, requirejs;
 
     __exports__["default"] = Ember.Component.extend(
     StyleBindingsMixin, ResizeHandlerMixin, {
+      layoutName: 'components/ember-table',
       classNames: ['ember-table-tables-container'],
       classNameBindings: ['enableContentSelection:ember-table-content-selectable'],
 
@@ -2159,7 +2160,7 @@ var define, requireModule, require, requirejs;
   __exports__['default'] = window.Ember;
 });
 
-window.Ember.Table = {};
+window.Ember.Table = Ember.Namespace.create();
 window.Ember.AddeparMixins = {};
 window.Ember.TEMPLATES['body-table-container'] = require('ember-table/templates/body-table-container')['default'];
 window.Ember.TEMPLATES['components/ember-table'] = require('ember-table/templates/components/ember-table')['default'];
