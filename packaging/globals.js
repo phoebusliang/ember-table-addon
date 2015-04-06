@@ -34,6 +34,9 @@ var Globals = function (inputTree) {
     'ember-table/templates/scroll-container': 'scroll-container'
   };
 
+  // The old global names aren't consistent: some are on Ember.Table, some on
+  // Ember.AddeparMixins, and some just on Ember. For backwards-compatibility
+  // we need to maintain the same old names.
   this.globalNameMapping = {
     'ember-table/components/ember-table': 'Ember.Table.EmberTableComponent',
     'ember-table/controllers/row-array': 'Ember.Table.RowArrayController',
