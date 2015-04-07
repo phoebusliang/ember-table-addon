@@ -127,7 +127,8 @@ var define, requireModule, require, requirejs;
 
     __exports__["default"] = Ember.Component.extend(
     StyleBindingsMixin, ResizeHandlerMixin, {
-      layoutName: 'components/ember-table',
+      // FIXME(azirbel): Need to remove this
+      // layoutName: 'components/ember-table',
       classNames: ['ember-table-tables-container'],
       classNameBindings: ['enableContentSelection:ember-table-content-selectable'],
 
@@ -2232,5 +2233,8 @@ container.register('view:table-container', require('ember-table/views/table-cont
 container.register('view:table-row', require('ember-table/views/table-row')['default']);
 }
 });
+});
+Ember.Table.EmberTableComponent.reopen({
+layoutName: 'components/ember-table'
 });
 Ember.Handlebars.helper('table-component', Ember.Table.EmberTableComponent);})();

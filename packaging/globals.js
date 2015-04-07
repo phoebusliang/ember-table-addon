@@ -22,6 +22,7 @@ var Globals = function (inputTree) {
 
   // FIXME(azirbel): Generate template names automatically instead, since
   // they have to be the same after all
+  // BUT FIRST - remove layoutName from ember-table component
   this.templateNameMapping = {
     'ember-table/templates/body-table-container': 'body-table-container',
     'ember-table/templates/components/ember-table': 'components/ember-table',
@@ -173,6 +174,14 @@ Globals.prototype.write = function(readTree, destDir) {
       [
             "}",
           "});",
+        "});"
+      ].forEach(function(line) {
+        output.push(line);
+      });
+
+      [
+        "Ember.Table.EmberTableComponent.reopen({",
+        "layoutName: 'components/ember-table'",
         "});"
       ].forEach(function(line) {
         output.push(line);
