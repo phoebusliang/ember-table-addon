@@ -1,5 +1,3 @@
-// FIXME(azirbel): Need to rename to remove "view"
-
 import Ember from 'ember';
 import StyleBindingsMixin from 'ember-table/mixins/style-bindings';
 
