@@ -13,7 +13,7 @@ definitions of Ember Table.
 - [x] Phase 3: Allow importing with modules by creating an Ember-CLI structure, where each file simply exports its globally defined counterpart
 - [x] Phase 4: Rewrite demo app in Ember CLI style with Javascript
 - [x] Phase 5: Move in actual source files and rewrite into Javascript
-- [ ] Phase 6: Support global style via a separate file that exports all the globals
+- [x] Phase 6: Support global style via a separate file that exports all the globals
 - [ ] Phase 7: Miscellaneous improvements marked by FIXME tags in the codebase
 
 The rationale for this multi-step upgrade is to reduce risk and keep the
