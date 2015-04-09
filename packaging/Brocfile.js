@@ -1,5 +1,7 @@
 /* jshint node: true */
 
+// FIXME(azirbel): Make "ember serve" not mess up the dist files
+
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 // TODO(azirbel): This is deprecated

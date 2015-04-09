@@ -7,9 +7,8 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'auto',
     EmberENV: {
-      // FIXME(azirbel): Once the JS app is imported, disable extensions and
-      // make the addon more compatible
-      //EXTEND_PROTOTYPES: false,
+      // TODO(azirbel): Disable prototype extensions
+      // EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true

@@ -3,9 +3,11 @@ module.exports = {
 
   afterInstall: function(options) {
     // We assume that handlebars, ember, and jquery already exist
-    // FIXME(azirbel): Do we need to install lodash too?
     return this.addBowerPackagesToProject([
       {
+        // Antiscroll seems to be abandoned by its original authors. We need
+        // two things: (1) a version in package.json, and (2) the name of the
+        // package must be "antiscroll" to satisfy ember-cli.
         'name': 'git://github.com/azirbel/antiscroll.git#90391fb371c7be769bc32e7287c5271981428356'
       },
       {
@@ -14,8 +16,7 @@ module.exports = {
       },
       {
         'name': 'jquery-ui',
-        // FIXME(azirbel): Can we use a newer version?
-        'target': '1.10.1'
+        'target': '~1.11.4'
       }
     ]);
   }
