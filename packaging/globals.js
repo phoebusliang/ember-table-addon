@@ -4,7 +4,7 @@ var path = require('path');
 var Promise = require('RSVP').Promise;
 var walk = require('walk-sync');
 
-// FIXME(azirbel): Log ember version and register with Ember.libraries?
+// TODO(azirbel): Log ember version and register with Ember.libraries?
 var Globals = function (inputTree) {
   options = {};
   if (!(this instanceof Globals)) {

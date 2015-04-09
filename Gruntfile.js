@@ -9,7 +9,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-release-it');
   grunt.loadNpmTasks('grunt-text-replace');
 
-  // FIXME(azirbel): We should register Ember Table, with its version, to Ember.Libraries
+  // TODO(azirbel): We should register Ember Table, with its version, to Ember.Libraries
 
   // Project configuration.
   grunt.initConfig({
