@@ -9,13 +9,6 @@ function htmlEntities(str) {
 }
 
 var app = new EmberAddon({
-  lessOptions: {
-    paths: [
-      'tests/dummy/app/styles/'
-    ],
-    outputFile: 'dummy.css'
-  },
-
   /*
    * Replace patterns. We use this to replace strings such as:
    * @@{controllers/file.js}
