@@ -4,6 +4,7 @@
 
 # compiled output
 /tmp
+/ember-dist
 
 # dependencies
 /node_modules

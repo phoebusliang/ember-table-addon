@@ -3,19 +3,12 @@
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 var fs = require('fs');
 
-// FIXME(azirbel): Use something more legit
+// TODO(azirbel): Use something more legit
 function htmlEntities(str) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 var app = new EmberAddon({
-  lessOptions: {
-    paths: [
-      'tests/dummy/app/styles/'
-    ],
-    outputFile: 'dummy.css'
-  },
-
   /*
    * Replace patterns. We use this to replace strings such as:
    * @@{controllers/file.js}

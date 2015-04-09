@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import RegisterTableComponentMixin from 'ember-table/mixins/register-table-component';
-import LazyContainerView from 'ember-table/views/lazy-container-view';
+import LazyContainerView from 'ember-table/views/lazy-container';
 
 export default LazyContainerView.extend(
 RegisterTableComponentMixin, {

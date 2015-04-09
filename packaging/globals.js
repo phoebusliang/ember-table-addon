@@ -4,13 +4,7 @@ var path = require('path');
 var Promise = require('RSVP').Promise;
 var walk = require('walk-sync');
 
-var addLinesToOutput = function(output, lines) {
-  lines.forEach(line, function() {
-    output.push(line);
-  });
-};
-
-// FIXME(azirbel): Log ember version and register with Ember.libraries?
+// TODO(azirbel): Log ember version and register with Ember.libraries?
 var Globals = function (inputTree) {
   options = {};
   if (!(this instanceof Globals)) {
@@ -41,8 +35,8 @@ var Globals = function (inputTree) {
     'ember-table/views/header-cell': 'Ember.Table.HeaderCell',
     'ember-table/views/header-row': 'Ember.Table.HeaderRow',
     'ember-table/views/header-table-container': 'Ember.Table.HeaderTableContainer',
-    'ember-table/views/lazy-container-view': 'Ember.LazyContainerView',
-    'ember-table/views/lazy-item-view': 'Ember.LazyItemView',
+    'ember-table/views/lazy-container': 'Ember.LazyContainerView',
+    'ember-table/views/lazy-item': 'Ember.LazyItemView',
     'ember-table/views/lazy-table-block': 'Ember.Table.LazyTableBlock',
     'ember-table/views/multi-item-collection': 'Ember.MultiItemCollectionView',
     'ember-table/views/scroll-container': 'Ember.Table.ScrollContainer',
@@ -60,8 +54,10 @@ Globals.prototype.constructor = Globals;
 Globals.prototype.write = function(readTree, destDir) {
   var _this = this;
 
-  this.capitalize = function(s) {
-    return s[0].toUpperCase() + s.substring(1);
+  this.addLinesToOutput = function(output, lines) {
+    lines.forEach(function(line) {
+      output.push(line);
+    });
   };
 
   return new Promise(function(resolve) {
@@ -112,18 +108,18 @@ Globals.prototype.write = function(readTree, destDir) {
 
       // On loading the ember application, register all views and components on
       // the application's container
-      addLinesToOutput(output, [
+      _this.addLinesToOutput(output, [
         "Ember.onLoad('Ember.Application', function(Application) {",
           "Application.initializer({",
             "name: 'ember-table',",
             "initialize: function(container) {"
       ]);
-      addLinesToOutput(output, toRegister.map(function(item) {
+      _this.addLinesToOutput(output, toRegister.map(function(item) {
         return "container.register('" + item.type + ':' + item.containerName +
             "', require('" + item.moduleName + "')['default']);";
         })
       );
-      addLinesToOutput(output, [
+      _this.addLinesToOutput(output, [
             "}",
           "});",
         "});"
@@ -131,7 +127,7 @@ Globals.prototype.write = function(readTree, destDir) {
 
       // For backwards compatibility, set a layoutName so the component
       // actually renders
-      addLinesToOutput(output, [
+      _this.addLinesToOutput(output, [
         "Ember.Table.EmberTableComponent.reopen({",
         "layoutName: 'components/ember-table'",
         "});"

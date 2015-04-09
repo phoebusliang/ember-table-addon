@@ -127,8 +127,6 @@ var define, requireModule, require, requirejs;
 
     __exports__["default"] = Ember.Component.extend(
     StyleBindingsMixin, ResizeHandlerMixin, {
-      // FIXME(azirbel): Need to remove this
-      // layoutName: 'components/ember-table',
       classNames: ['ember-table-tables-container'],
       classNameBindings: ['enableContentSelection:ember-table-content-selectable'],
 
@@ -262,7 +260,6 @@ var define, requireModule, require, requirejs;
 
       // TODO(new-api): eliminate view alias
       // specify the view class to use for rendering the table rows
-      // FIXME(azirbel): use the class itself, avoid lookups
       tableRowView: 'table-row',
       tableRowViewClass: Ember.computed.alias('tableRowView'),
 
@@ -1808,12 +1805,10 @@ var define, requireModule, require, requirejs;
       width: Ember.computed.alias('tableComponent._tableContainerWidth')
     });
   });
-;define("ember-table/views/lazy-container-view", 
+;define("ember-table/views/lazy-container", 
   ["ember","ember-table/mixins/style-bindings","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
-    // FIXME(azirbel): Need to rename to remove "view"
-
     var Ember = __dependency1__["default"];
     var StyleBindingsMixin = __dependency2__["default"];
 
@@ -1908,12 +1903,10 @@ var define, requireModule, require, requirejs;
       }, 'content.length', 'startIndex')
     });
   });
-;define("ember-table/views/lazy-item-view", 
+;define("ember-table/views/lazy-item", 
   ["ember","ember-table/mixins/style-bindings","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
-    // FIXME(azirbel): Need to rename to remove "view"
-
     var Ember = __dependency1__["default"];
     var StyleBindingsMixin = __dependency2__["default"];
 
@@ -1937,7 +1930,7 @@ var define, requireModule, require, requirejs;
     });
   });
 ;define("ember-table/views/lazy-table-block", 
-  ["ember","ember-table/mixins/register-table-component","ember-table/views/lazy-container-view","exports"],
+  ["ember","ember-table/mixins/register-table-component","ember-table/views/lazy-container","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var Ember = __dependency1__["default"];
@@ -2115,7 +2108,7 @@ var define, requireModule, require, requirejs;
     });
   });
 ;define("ember-table/views/table-row", 
-  ["ember","ember-table/mixins/register-table-component","ember-table/views/lazy-item-view","exports"],
+  ["ember","ember-table/mixins/register-table-component","ember-table/views/lazy-item","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var Ember = __dependency1__["default"];
@@ -2172,15 +2165,6 @@ var define, requireModule, require, requirejs;
 
 window.Ember.Table = Ember.Namespace.create();
 window.Ember.AddeparMixins = {};
-window.Ember.TEMPLATES['body-table-container'] = require('ember-table/templates/body-table-container')['default'];
-window.Ember.TEMPLATES['components/ember-table'] = require('ember-table/templates/components/ember-table')['default'];
-window.Ember.TEMPLATES['footer-table-container'] = require('ember-table/templates/footer-table-container')['default'];
-window.Ember.TEMPLATES['header-cell'] = require('ember-table/templates/header-cell')['default'];
-window.Ember.TEMPLATES['header-row'] = require('ember-table/templates/header-row')['default'];
-window.Ember.TEMPLATES['header-table-container'] = require('ember-table/templates/header-table-container')['default'];
-window.Ember.TEMPLATES['table-cell'] = require('ember-table/templates/table-cell')['default'];
-window.Ember.TEMPLATES['table-row'] = require('ember-table/templates/table-row')['default'];
-window.Ember.TEMPLATES['scroll-container'] = require('ember-table/templates/scroll-container')['default'];
 window.Ember.Table.EmberTableComponent = require('ember-table/components/ember-table')['default'];
 window.Ember.Table.RowArrayController = require('ember-table/controllers/row-array')['default'];
 window.Ember.Table.Row = require('ember-table/controllers/row')['default'];
@@ -2199,8 +2183,8 @@ window.Ember.Table.HeaderBlock = require('ember-table/views/header-block')['defa
 window.Ember.Table.HeaderCell = require('ember-table/views/header-cell')['default'];
 window.Ember.Table.HeaderRow = require('ember-table/views/header-row')['default'];
 window.Ember.Table.HeaderTableContainer = require('ember-table/views/header-table-container')['default'];
-window.Ember.LazyContainerView = require('ember-table/views/lazy-container-view')['default'];
-window.Ember.LazyItemView = require('ember-table/views/lazy-item-view')['default'];
+window.Ember.LazyContainerView = require('ember-table/views/lazy-container')['default'];
+window.Ember.LazyItemView = require('ember-table/views/lazy-item')['default'];
 window.Ember.Table.LazyTableBlock = require('ember-table/views/lazy-table-block')['default'];
 window.Ember.MultiItemCollectionView = require('ember-table/views/multi-item-collection')['default'];
 window.Ember.Table.ScrollContainer = require('ember-table/views/scroll-container')['default'];
@@ -2221,8 +2205,8 @@ container.register('view:header-block', require('ember-table/views/header-block'
 container.register('view:header-cell', require('ember-table/views/header-cell')['default']);
 container.register('view:header-row', require('ember-table/views/header-row')['default']);
 container.register('view:header-table-container', require('ember-table/views/header-table-container')['default']);
-container.register('view:lazy-container-view', require('ember-table/views/lazy-container-view')['default']);
-container.register('view:lazy-item-view', require('ember-table/views/lazy-item-view')['default']);
+container.register('view:lazy-container', require('ember-table/views/lazy-container')['default']);
+container.register('view:lazy-item', require('ember-table/views/lazy-item')['default']);
 container.register('view:lazy-table-block', require('ember-table/views/lazy-table-block')['default']);
 container.register('view:multi-item-collection', require('ember-table/views/multi-item-collection')['default']);
 container.register('view:scroll-container', require('ember-table/views/scroll-container')['default']);
