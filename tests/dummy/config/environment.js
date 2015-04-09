@@ -5,7 +5,10 @@ module.exports = function(environment) {
     modulePrefix: 'dummy',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    // We can't use 'auto' for the location, because this breaks gh-pages.
+    // (gh-pages doesn't support URLRewrite / server configuration files, so if
+    // you try to load a route directly, you'll get a 404.)
+    locationType: 'hash',
     EmberENV: {
       // TODO(azirbel): Disable prototype extensions
       // EXTEND_PROTOTYPES: false,
@@ -44,9 +47,6 @@ module.exports = function(environment) {
     }
   };
 
-  if (environment === 'development') {
-  }
-
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
@@ -59,8 +59,7 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  // Makes the app work when deployed to gh-pages
-  if (environment === 'production') {
+  if (environment === 'gh-pages') {
     ENV.baseURL = '/ember-table-addon/';
   }
 

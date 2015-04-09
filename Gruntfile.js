@@ -86,10 +86,10 @@ module.exports = function (grunt) {
         'tagName': 'v%s',
         'tagAnnotation': 'Release %s',
         'increment': 'patch',
-        'buildCommand': 'ember build --environment="production"',
+        'buildCommand': 'grunt dist && ember build --environment="gh-pages"',
         'distRepo': '-b gh-pages git@github.com:addepar/ember-table-addon',
         'distStageDir': '.stage',
-        'distBase': 'dist',
+        'distBase': 'ember-dist',
         'distFiles': ['**/*'],
         'publish': false
       }
