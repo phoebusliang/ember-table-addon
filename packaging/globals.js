@@ -73,13 +73,15 @@ Globals.prototype.write = function(readTree, destDir) {
       // Get a listing of all hbs files from inputTree and make sure each one
       // is registered on Ember.TEMPLATES
       var templateFiles = walk(srcDir).filter(function(f) {
-        return /\.hbs$/.test(f);
+        return /^templates.*js$/.test(f);
       });
       templateFiles.forEach(function(filename) {
-        var parts = filename.split(path.sep);
+        // Add ember-table namespace and remove .js extension
+        var filePath = 'ember-table/' + filename.slice(0, -3);
+        var parts = filePath.split(path.sep);
         output.push("window.Ember.TEMPLATES['" +
             parts.slice(2).join('/') + "']" +
-            " = require('" + filename + "')['default'];");
+            " = require('" + filePath + "')['default'];");
       });
 
       // Classes to register on the application's container. We need this
