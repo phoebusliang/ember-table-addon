@@ -1,5 +1,5 @@
 /*!
-* ember-table v0.0.3
+* ember-table v0.0.4
 * Copyright 2012-2015 Addepar Inc.
 * See LICENSE.
 */
