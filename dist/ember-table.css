@@ -485,3 +485,190 @@
 .ember-table-body-container .ember-table-table-row.ember-table-selected .ember-table-cell {
   border-right: 1px solid #1d6bac;
 }
+.ember-table-financial {
+  /* Table Structures */
+  /* Table Cell */
+  /* Header Container */
+  /* Header Cells */
+  /* Footer */
+  /* Add Column Button */
+  /* Levels */
+}
+.ember-table-financial .ember-table-tables-container {
+  background-color: transparent;
+  border: none;
+  color: #77777a;
+  overflow: hidden;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ember-table-financial .ember-table-tables-container.widget {
+  border: 1px solid #dcdcdc;
+  border: 1px solid #cfd1d4;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.ember-table-financial .ember-table-tables-container * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.ember-table-financial .ember-table-header-container,
+.ember-table-financial .ember-table-footer-container {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.ember-table-financial .ember-table-header-row,
+.ember-table-financial .ember-table-header-container .ember-table-table-fixed-wrapper {
+  background: transparent;
+  background-color: transparent;
+  background-color: 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(0), to(#ffffff));
+  background: -webkit-linear-gradient(top, 0, #ffffff);
+  background: -moz-linear-gradient(top, 0, #ffffff);
+  background: -ms-linear-gradient(top, 0, #ffffff);
+  background: -o-linear-gradient(top, 0, #ffffff);
+}
+.ember-table-financial .ember-table-cell {
+  font-size: 13px;
+  border-right: 16px solid transparent;
+}
+.ember-table-financial .ember-table-cell-container {
+  border-bottom: 1px dotted #bbb;
+}
+.ember-table-financial .ember-table-left-table-block .ember-table-cell {
+  border-right: 16px solid transparent !important;
+}
+.ember-table-financial .ember-table-header-container {
+  border-bottom-width: 0;
+}
+.ember-table-financial .ember-table-header-container .ember-table-right-table-block .ember-table-table-row {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ember-table-financial .ember-table-header-container .ember-table-right-table-block .ember-table-table-row .ui-sortable {
+  overflow: hidden;
+}
+.ember-table-financial .ember-table-header-cell {
+  font-weight: 600;
+  font-size: 9px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+  background-color: transparent;
+}
+.ember-table-financial .ember-table-header-cell span {
+  line-height: 1;
+}
+.ember-table-financial .ember-table-header-cell .ember-table-header-content-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.ember-table-financial .ember-table-header-cell .ember-table-header-content-container:hover {
+  cursor: pointer;
+}
+.ember-table-financial .ember-table-header-cell .ember-table-header-content-container .ember-table-content {
+  padding: 5px 0;
+  line-height: 1.4;
+  position: absolute;
+  bottom: 2px;
+  color: #999;
+}
+.ember-table-financial .ember-table-header-cell .ember-table-toggle {
+  position: relative;
+}
+.ember-table-financial .ember-table-header-cell .ember-table-toggle i {
+  position: absolute;
+  bottom: 8px;
+  font-size: 13px;
+}
+.ember-table-financial .ember-table-header-cell.text-align-left .ember-table-content {
+  left: 0;
+}
+.ember-table-financial .ember-table-header-cell.text-align-right .ember-table-content {
+  right: 0;
+}
+.ember-table-financial .ember-table-table-header-tree-cell .ember-table-header-content-container {
+  left: 20px;
+}
+.ember-table-financial .ember-table-table-header-tree-cell .ember-table-toggle-span {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
+.ember-table-financial .ember-table-table-dropdown-toggle {
+  height: 19px;
+  float: right;
+  margin: 0;
+  text-align: center;
+  padding: 3px 2px 0 2px;
+  color: #757575;
+}
+.ember-table-financial .ember-table-footer-container {
+  border: none;
+}
+.ember-table-financial .ember-table-footer-container .ember-table-cell-container {
+  border-top: 1px dotted #bbb;
+  border-bottom: none;
+}
+.ember-table-financial .ember-table-fixed-table-container.ember-table-header-container,
+.ember-table-financial .ember-table-fixed-table-container.ember-table-footer-container {
+  background-color: transparent;
+}
+.ember-table-financial .ember-table-add-column-button {
+  display: none;
+}
+.ember-table-financial .ember-table-table-row {
+  border-bottom-width: 0 !important;
+  color: #333;
+}
+.ember-table-financial .ember-table-table-row.ember-table-row-style-1 {
+  font-weight: bold;
+}
+.ember-table-financial .ember-table-table-row.ember-table-row-style-2 {
+  font-weight: normal;
+}
+.ember-table-financial .ember-table-table-row.ember-table-row-style-3 {
+  font-weight: 300;
+}
+.ember-table-financial .ember-table-table-row.ember-table-row-style-4 {
+  font-weight: 300;
+}
+.ember-table-financial .ember-table-table-row.ember-table-row-style-5 {
+  font-weight: 300;
+}
+.ember-table-financial .ember-table-table-row.ember-table-row-style-6 {
+  font-weight: 300;
+}
+.ember-table-financial .ember-table-table-row.ember-table-last-row .ember-table-cell-container {
+  border-bottom: none !important;
+}
+.ember-table-financial .ember-table-table-row.ember-table-selected .ember-table-cell {
+  border-right: 16px solid transparent;
+}
+.ember-table-financial .ember-table-body-container .ember-table-table-row.ember-table-hover .ember-table-toggle.ember-table-collapse .ember-table-toggle-icon {
+  opacity: 0.3;
+}
