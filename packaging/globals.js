@@ -46,6 +46,28 @@ var Globals = function (inputTree) {
     'ember-table/views/table-container': 'Ember.Table.TableContainer',
     'ember-table/views/table-row': 'Ember.Table.TableRow'
   };
+
+  // Some templates used inconsistent names in the past:
+  //   * `header-table-container` used to be `header-container`
+  //   * `body-table-container` used to be `body-container`
+  //   * `footer-table-container` used to be `footer-container`
+  //
+  // These names were used only for templates; the corresponding Ember objects
+  // were called HeaderTableContainer, and each one of these objects had to
+  // override `templateName` to use the inconsistently named template.
+  //
+  // In the new version, we don't want to use `templateName` any more, so these
+  // Ember objects will now look up templates like `header-table-container`
+  // automatically. But if anyone else was relying on these templates existing
+  // under their old names, like `header-container`, they will be in trouble.
+  // So we export extra templates in the Ember.TEMPLATES namespace with the old
+  // names.
+  this.legacyTemplateNames = {
+    'body-container': 'ember-table/views/body-table-container',
+    'footer-container': 'ember-table/views/footer-table-container',
+    'header-container': 'ember-table/views/header-table-container'
+  };
+
 };
 
 Globals.prototype = Object.create(Writer.prototype);
@@ -83,6 +105,13 @@ Globals.prototype.write = function(readTree, destDir) {
             parts.slice(2).join('/') + "']" +
             " = require('" + filePath + "')['default'];");
       });
+
+      // Register legacy template names to preserve backwards compatibility;
+      // see comment on `legacyTemplateNames`.
+      for (key in _this.legacyTemplateNames) {
+        output.push("window.Ember.TEMPLATES['" + key + "']" +
+            " = require('" + _this.legacyTemplateNames[key] + "')['default'];");
+      }
 
       // Classes to register on the application's container. We need this
       // because we used to refer to views by their full, global name
@@ -127,8 +156,8 @@ Globals.prototype.write = function(readTree, destDir) {
         "});"
       ]);
 
-      // For backwards compatibility, set a layoutName so the component
-      // actually renders
+      // In Ember CLI mode, components know where there layouts are. In the
+      // globals version, we have to tell it explicitly.
       _this.addLinesToOutput(output, [
         "Ember.Table.EmberTableComponent.reopen({",
         "layoutName: 'components/ember-table'",
