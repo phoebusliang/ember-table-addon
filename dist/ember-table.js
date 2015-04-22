@@ -485,7 +485,7 @@ var define, requireModule, require, requirejs;
         var columnsWidth = this.get('_tableColumnsWidth');
         var nonFixedTableWidth = this.get('_tableContainerWidth') -
             this.get('_fixedColumnsWidth');
-        return Math.min(columnsWidth, nonFixedTableWidth);
+        return Math.max(columnsWidth, nonFixedTableWidth);
       }).property('_fixedColumnsWidth', '_tableColumnsWidth',
           '_tableContainerWidth'),
 
