@@ -17,16 +17,12 @@ var addonTree = pickFiles('addon', {
   srcDir: '/',
   destDir: 'ember-table'
 });
-var viewsTree = pickFiles('app/views', {
-  srcDir: '/',
-  destDir: 'ember-table/views'
-});
 
 // Compile templates
 var templateTree = templateCompiler('app/templates', { module: true });
 templateTree = pickFiles(templateTree, {srcDir: '/', destDir: 'ember-table/templates'});
 
-var sourceTree = mergeTrees([templateTree, viewsTree, addonTree], {overwrite: true});
+var sourceTree = mergeTrees([templateTree, addonTree], {overwrite: true});
 
 // Does a few things:
 //   - Generate global exports, like Ember.Table.EmberTableComponent
