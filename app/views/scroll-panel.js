@@ -1,11 +1,3 @@
-import Ember from 'ember';
-import StyleBindingsMixin from 'ember-table/mixins/style-bindings';
-import RegisterTableComponentMixin from 'ember-table/mixins/register-table-component';
+import ScrollPanel from 'ember-table/views/scroll-panel';
 
-export default Ember.View.extend(
-StyleBindingsMixin, RegisterTableComponentMixin, {
-  classNames: ['ember-table-scroll-panel'],
-  styleBindings: ['width', 'height'],
-  width: Ember.computed.alias('tableComponent._tableColumnsWidth'),
-  height: Ember.computed.alias('tableComponent._tableContentHeight')
-});
+export default ScrollPanel;

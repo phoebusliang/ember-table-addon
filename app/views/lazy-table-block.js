@@ -1,19 +1,3 @@
-import Ember from 'ember';
-import RegisterTableComponentMixin from 'ember-table/mixins/register-table-component';
-import LazyContainerView from 'ember-table/views/lazy-container';
+import LazyTableBlock from 'ember-table/views/lazy-table-block';
 
-export default LazyContainerView.extend(
-RegisterTableComponentMixin, {
-  classNames: ['ember-table-table-block'],
-  styleBindings: ['width'],
-  itemViewClass: Ember.computed.alias('tableComponent.tableRowViewClass'),
-  rowHeight: Ember.computed.alias('tableComponent.rowHeight'),
-  columns: null,
-  content: null,
-  scrollLeft: null,
-  scrollTop: null,
-
-  onScrollLeftDidChange: Ember.observer(function() {
-    return this.$().scrollLeft(this.get('scrollLeft'));
-  }).observes('scrollLeft')
-});
+export default LazyTableBlock;

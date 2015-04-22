@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import TableCell from '../views/table-cell';
+import TableCell from 'ember-table/views/table-cell';
 import d3HorizonUtils from '../utils/horizon';
 
 export default TableCell.extend({
