@@ -19,7 +19,7 @@ definitions of Ember Table.
 The rationale for this multi-step upgrade is to reduce risk and keep the
 library functional in non-ember-cli apps.
 
-## Installing in your Ember CLI app
+## Installing in your Ember CLI app 
 
 * `npm install --save-dev ember-table`
 * `ember g ember-table`
