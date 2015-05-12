@@ -1,5 +1,7 @@
 # Ember-CLI Addon for Ember Table
 
+[![Build Status](https://travis-ci.org/hedgeserv/ember-table-addon.svg?branch=master)](https://travis-ci.org/hedgeserv/ember-table-addon)
+
 This is an Ember-CLI wrapper around [Addepar's Ember Table.](https://github.com/Addepar/ember-table).
 
 We'd like to gracefully port Ember Table to the Ember-CLI style, while
