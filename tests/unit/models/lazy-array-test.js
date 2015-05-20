@@ -2,19 +2,11 @@ import Ember from "ember";
 import { module, test } from 'qunit';
 import LazyArray from 'ember-table/models/lazy-array';
 
-module('Lazy Array', {
-  beforeEach: function () {
-    loadedCount = 0;
-    lazyArray = new LazyArray(totalCount, initSize, getNextChunk);
-  },
-
-  afterEach: function () {
-    lazyArray = null;
-  }
-});
-
 var loadedCount = 0;
 var pendingPromises = [];
+var initSize = 100;
+var lazyArray;
+
 function getNextChunk() {
   var promise = new Ember.RSVP.Promise(function (resolve) {
     Ember.run.later(function () {
@@ -30,12 +22,8 @@ function getNextChunk() {
   });
   pendingPromises.push(promise);
   return promise;
+
 }
-
-var totalCount = 100;
-var initSize = 100;
-
-var lazyArray;
 
 function accessObject(idx) {
   return lazyArray.objectAt(idx - 1);
@@ -59,6 +47,30 @@ function asyncAssert(callback) {
     callback();
   });
 }
+
+module('Lazy Array TotalCount Of 200', {
+  beforeEach: function () {
+    loadedCount = 0;
+    lazyArray = LazyArray.create({
+      totalCount: 200,
+      callback: getNextChunk
+    });
+  },
+
+  afterEach: function () {
+    lazyArray = null;
+    pendingPromises = [];
+  }
+});
+
+test('Should return object immediately', function (assert) {
+  var obj = accessObject(1);
+
+  assert.ok(obj, 'Should return an object');
+  assert.ok(!obj.get('isLoaded'), 'Flag for unloaded object should be false');
+
+  return asyncAssert(function(){});
+});
 
 test('Should load first 100 loans when accessing the 1th loans', function (assert) {
   accessObject(1);
@@ -84,11 +96,21 @@ test('Should not load next 100 loans When accessing the 89th loans', function (a
   });
 });
 
+test('Should set object property to isLoaded when 5th loan loaded', function(assert) {
+  var obj = accessObject(5);
+
+  assert.ok(!obj.get('isLoaded'), 'Load flag for unloaded object should be false');
+
+  return asyncAssert(function () {
+    assert.ok(accessObject(5).get('isLoaded'), 'Load flag should be set');
+  });
+});
+
 test('Should return the 5th loan When accessing the 5th loan ', function (assert) {
   accessObject(5);
 
   return asyncAssert(function () {
-    assert.equal(accessObject(5).id, 4);
+    assert.equal(accessObject(5).get('id'), 4);
   });
 });
 
@@ -96,16 +118,15 @@ test('Should return the 101th loan When accessing the 101th loan ', function (as
   accessObject(101);
 
   return asyncAssert(function () {
-    assert.equal(accessObject(101).id, 100);
+    assert.equal(accessObject(101).get('id'), 100);
   });
 });
 
-// TODO: Does this test make sense?
-//test('Should return length of 200 on init', function (assert) {
-//  return asyncAssert(function () {
-//    assert.equal(lazyArray.length, 200);
-//  });
-//});
+test('Should return length of 200 on init', function (assert) {
+  return asyncAssert(function () {
+    assert.equal(lazyArray.get('length'), 200);
+  });
+});
 
 test('Should be instance of Ember.ArrayProxy', function (assert) {
   return asyncAssert(function () {
@@ -152,21 +173,33 @@ test('Should not notify content length observer when load next chunk', function 
   });
 });
 
-test('Should add the 289th to bottom fo the table when scroll to the 190th', function (assert) {
-  accessObject(190);
+test('Should load first chunk only one time When access object 1 then 2', function(assert) {
+  accessObject(1);
+  accessObject(2);
 
-  return asyncAssert(function () {
-    assert.equal(accessObject(289).id, 288);
+  return asyncAssert(function() {
+    assert.ok(loadedCount === 100, 'only load first chunk');
   });
 });
 
-test('Should not remove loans when ember table scrolled form a row of ember table to top', function (assert) {
+module('Lazy Array TotalCount Of 300', {
+  beforeEach: function () {
+    loadedCount = 0;
+    lazyArray = LazyArray.create({
+      totalCount: 300,
+      callback: getNextChunk
+    });
+  },
+
+  afterEach: function () {
+    lazyArray = null;
+  }
+});
+
+test('Should load the 289th when access 190th', function (assert) {
   accessObject(190);
 
   return asyncAssert(function () {
-    accessObject(1);
-    assert.equal(loadedCount, 300);
+    assert.ok(loadedCount > 289, '289th should be loaded');
   });
 });
-
-
