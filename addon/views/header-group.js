@@ -5,9 +5,7 @@ export default HeaderBlock.extend({
 
   classNameBindings: [ 'columnGroup.groupStyle' ],
 
-  width: Ember.computed(function() {
-    return this.get('columnGroup').get('savedWidth');
-  }),
+  width: Ember.computed.alias('columnGroup.savedWidth'),
 
   headerHeight: Ember.computed.alias('tableComponent._headerHeight'),
 
