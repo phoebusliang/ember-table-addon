@@ -156,8 +156,15 @@ StyleBindingsMixin, ResizeHandlerMixin, {
     // Fixed columns are not affected by column reordering
     var numFixedColumns = this.get('fixedColumns.length');
     var columns = this.get('columns');
-    columns.removeObject(column);
-    columns.insertAt(numFixedColumns + newIndex, column);
+    if (columns.indexOf(column) !== -1) {
+      columns.removeObject(column);
+      columns.insertAt(numFixedColumns + newIndex, column);
+    }
+    else {
+      Ember.A(columns)
+        .filterBy('isGroup', true)
+        .invoke('reorder', newIndex, column);
+    }
     return this.prepareTableColumns();
   },
 
