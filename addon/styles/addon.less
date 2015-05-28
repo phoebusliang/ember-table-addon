@@ -616,6 +616,31 @@
   }
 }
 
+.sort-indicator-icon.ember-table-header-cell > .ember-table-content-container > span{
+  padding-right: 5px;
+}
+
+.sort-indicator-icon > .ember-table-content-container > span:after {
+  display: none;
+  width: 0px;
+  height: 0px;
+  float: right;
+  overflow: hidden;
+  content: '\f0d7';
+  border-style: solid;
+  border-width: 5px;
+  margin-left: 10px;
+}
+.sort-indicator-icon-up.sort-indicator-icon > .ember-table-content-container > span:after {
+  display:block;
+  border-color: transparent transparent #000 transparent;
+}
+
+.sort-indicator-icon-down.sort-indicator-icon > .ember-table-content-container > span:after {
+  display: block;
+  border-color: #000 transparent transparent transparent;
+}
+
 //
 // Financial theme is included by default.
 //
