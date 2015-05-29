@@ -2,22 +2,27 @@ import Ember from 'ember';
 import HeaderBlock from '../views/header-block';
 
 export default HeaderBlock.extend({
+  classNames: ['sortable'],
+  classNameBindings: ['columnGroup.groupStyle', 'hasMultiInnerColumns:ember-table-multi-inner-block' ],
 
-  classNameBindings: [ 'columnGroup.groupStyle', 'hasMultiInnerColumns:ember-table-multi-inner-block' ],
-
-  width: Ember.computed.alias('columnGroup.savedWidth'),
+  width: Ember.computed(function() {
+    var rowColumns = this.get('content')[0];
+    return rowColumns.getEach('savedWidth').reduce(function(columnWidth, res){
+      return res + columnWidth;
+    });
+  }).property('content[0].@each.savedWidth'),
 
   headerHeight: Ember.computed.alias('tableComponent._headerHeight'),
 
-  content: Ember.computed(function() {
-    var group = this.get('columnGroup');
-    if (group.get('innerColumns')) {
-      return [[group], group.get('columns')];
-    } else {
-      group.set('headerCellHeight', this.get('headerHeight') * 2);
-      return [[group]];
-    }
-  }).property('columnGroup'),
+  //content: Ember.computed(function() {
+  //  var group = this.get('content');
+  //  if (group.get('innerColumns')) {
+  //    return [[group], group.get('columns')];
+  //  } else {
+  //    group.set('headerCellHeight', this.get('headerHeight') * 2);
+  //    return [[group]];
+  //  }
+  //}).property('columnGroup'),
 
   hasMultiInnerColumns: Ember.computed(function() {
     var innerColumns = this.get('columnGroup.innerColumns');
