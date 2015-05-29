@@ -162,7 +162,7 @@ StyleBindingsMixin, ResizeHandlerMixin, {
   onColumnSort: function(column, newIndex) {
     // Fixed columns are not affected by column reordering
     var numFixedColumns = this.get('fixedColumns.length');
-    var columns = this.get('columnGroups');
+    var columns = this.get('columns');
     if (columns.indexOf(column) !== -1) {
       columns.removeObject(column);
       columns.insertAt(numFixedColumns + newIndex, column);
@@ -172,6 +172,12 @@ StyleBindingsMixin, ResizeHandlerMixin, {
         .filterBy('isGroup', true)
         .invoke('reorder', newIndex, column);
       this.set("_innerColumnReordered", !this.get('_innerColumnReordered'));
+      //for (let i = 0; i < columns.length; i++) {
+      //  if (columns[i].get('isGroup')) {
+      //    columns[i].reorder(newIndex, column);
+      //  }
+      //}
+      //this.set("_innerColumnReordered", column);
     }
     return this.prepareTableColumns();
   },
@@ -216,7 +222,7 @@ StyleBindingsMixin, ResizeHandlerMixin, {
 
   prepareTableColumns: function() {
     var _this = this;
-    var columns = this.get('_flattenedColumns') ||this.get('columns') || Ember.A();
+    var columns = this.get('columns') || Ember.A();
     columns.setEach('controller', this);
     columns.forEach(function(col, i) {
       col.set('nextResizableColumn', _this.getNextResizableColumn(columns, i));
@@ -236,7 +242,6 @@ StyleBindingsMixin, ResizeHandlerMixin, {
     if(this.get('hasColumnGroup')) {
       columns = this.get('columns') || Ember.A();
       this.set('columnGroups', columns);
-      console.log('column groups --> ', columns);
       return columns.reduce(function(result, col) {
         var innerColumns = col.get('innerColumns');
         if (innerColumns) {
