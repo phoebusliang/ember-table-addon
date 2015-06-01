@@ -121,6 +121,10 @@ StyleBindingsMixin, ResizeHandlerMixin, {
   columnsFillTable: true,
 
   init: function() {
+    if (this.get('hasColumnGroup')) {
+      this.set('columnGroups', this.get('columns'));
+    }
+
     this._super();
     if (!Ember.$.ui) {
       throw 'Missing dependency: jquery-ui';
@@ -172,12 +176,6 @@ StyleBindingsMixin, ResizeHandlerMixin, {
         .filterBy('isGroup', true)
         .invoke('reorder', newIndex, column);
       this.set("_innerColumnReordered", !this.get('_innerColumnReordered'));
-      //for (let i = 0; i < columns.length; i++) {
-      //  if (columns[i].get('isGroup')) {
-      //    columns[i].reorder(newIndex, column);
-      //  }
-      //}
-      //this.set("_innerColumnReordered", column);
     }
     return this.prepareTableColumns();
   },
@@ -241,7 +239,6 @@ StyleBindingsMixin, ResizeHandlerMixin, {
     var columns;
     if(this.get('hasColumnGroup')) {
       columns = this.get('columns') || Ember.A();
-      this.set('columnGroups', columns);
       return columns.reduce(function(result, col) {
         var innerColumns = col.get('innerColumns');
         if (innerColumns) {
